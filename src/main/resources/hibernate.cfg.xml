@@ -4,7 +4,7 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 	    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-	    <property name="hibernate.connection.url">jdbc:mysql://lolpick-lolcounter.c6apv6kwmit3.us-east-1.rds.amazonaws.com:3306/lolcounter</property>
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 		
 		<mapping class="com.lolpick.lolcounter.entity.Champion"></mapping>
 		<mapping class="com.lolpick.lolcounter.entity.Block"></mapping>

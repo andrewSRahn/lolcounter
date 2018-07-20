@@ -6,7 +6,11 @@ Feature: Scrape lolcounter.com then store in SQL
 		When Champion service reads champions
     Then champions will contain given names.
   
-  Scenario: Scrape /champions/name/relation
-  	Given /champions/name/relation is scraped
-  	When Page service reads pages
-  	Then Page block will contain image, foe, lane, up, and down
+  Scenario Outline: Scrape champions/<name>/<relation>
+  	Given /champions/<name>/<relation> is scraped
+  	Then Page block will contain <image>, <lane>, <up>, and <down>
+  	
+  	Examples:
+  		|	name			|	relation			| image						|	lane					|	up		|	down	|
+  		| 	
+			

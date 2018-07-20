@@ -2,8 +2,10 @@ package com.lolpick.lolcounter.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,7 +22,7 @@ public class Page {
 	@Column
 	String relation;
 	
-	@OneToMany(mappedBy="page")
+	@OneToMany(mappedBy="page", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	List<Block> blocks;
 	
 	public Page() {}

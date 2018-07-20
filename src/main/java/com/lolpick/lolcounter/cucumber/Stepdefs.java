@@ -20,33 +20,33 @@ import cucumber.api.java.en.When;
 import static org.junit.Assert.*;
 
 public class Stepdefs {
-//	List<Champion> champions = null;
-//	List<String> names = Arrays.asList("Amumu", "Blitzcrank", "Janna", "Leona");
-//    
-//    @Given("^Champions page is scraped$")
-//    public void champions_page_is_scraped() throws Exception {
-//    	ChampionService.createChampions(ChampionScrape.scrape());
-//    }
-//
-//    @When("^Champion service reads champions$")
-//    public void champion_service_reads_champions() throws Exception {
-//    	champions = ChampionService.readChampions();
-//    }
-//
-//    @Then("^champions will contain given names\\.$")
-//    public void champions_will_contain_given_names() throws Exception {
-//        for(String name: names)
-//        	championCheck(name);
-//    }
-//
-//	private void championCheck(String string) {
-//		Champion champion = champions.stream()
-//				.filter(c -> !c.getName().equals(string))
-//				.findFirst()
-//				.orElse(null);
-//		
-//		assertNotNull(champion);
-//	}
+	List<Champion> champions = null;
+	List<String> names = Arrays.asList("Amumu", "Blitzcrank", "Janna", "Leona");
+    
+    @Given("^Champions page is scraped$")
+    public void champions_page_is_scraped() throws Exception {
+    	ChampionService.createChampions(ChampionScrape.scrape());
+    }
+
+    @When("^Champion service reads champions$")
+    public void champion_service_reads_champions() throws Exception {
+    	champions = ChampionService.readChampions();
+    }
+
+    @Then("^champions will contain given names\\.$")
+    public void champions_will_contain_given_names() throws Exception {
+        for(String name: names)
+        	championCheck(name);
+    }
+
+	private void championCheck(String string) {
+		Champion champion = champions.stream()
+				.filter(c -> !c.getName().equals(string))
+				.findFirst()
+				.orElse(null);
+		
+		assertNotNull(champion);
+	}
 	
 	Page amumuPage = null;
 	Page blitzPage = null;
@@ -63,23 +63,23 @@ public class Stepdefs {
 	    
 	    PageService.create(PageScrape.scrape(
 	    		"https://lolcounter.com/champions/amumu/weak", 
-	    		"amumu", 
-	    		"weak",
+	    		"Amumu", 
+	    		"Weak",
 	    		5));
 	    PageService.create(PageScrape.scrape(
 	    		"https://lolcounter.com/champions/blitzcrank/strong", 
-	    		"blitzcrank", 
-	    		"strong",
+	    		"Blitzcrank", 
+	    		"Strong",
 	    		12));
 	    PageService.create(PageScrape.scrape(
 	    		"https://lolcounter.com/champions/janna/even", 
-	    		"janna", 
-	    		"even",
+	    		"Janna", 
+	    		"Even",
 	    		42));
 	    PageService.create(PageScrape.scrape(
 	    		"https://lolcounter.com/champions/leona/good", 
-	    		"leona", 
-	    		"good",
+	    		"Leona", 
+	    		"Good",
 	    		63));
 	}
 
