@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+	    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+	    <property name="hibernate.connection.url">jdbc:mysql://lolpick-lolcounter.c6apv6kwmit3.us-east-1.rds.amazonaws.com:3306/lolcounter</property>
+		
+		<mapping class="com.lolpick.lolcounter.entity.Champion"></mapping>
+		<mapping class="com.lolpick.lolcounter.entity.Block"></mapping>
+		<mapping class="com.lolpick.lolcounter.entity.Page"></mapping>
+	</session-factory>
+</hibernate-configuration>
+
+
