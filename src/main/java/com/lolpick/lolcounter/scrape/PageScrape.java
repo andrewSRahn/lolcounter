@@ -7,6 +7,7 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import com.lolpick.lolcounter.entity.Block;
 import com.lolpick.lolcounter.entity.Page;
@@ -14,7 +15,6 @@ import com.lolpick.lolcounter.service.BlockService;
 import com.lolpick.lolcounter.service.PageService;
 
 public class PageScrape {
-	private final static int BLOCK_COUNT = 21;
 	
 	public static Page scrape(String url, String champion, String relation, Integer id) {
 		List<Block> blocks = new ArrayList<>();
@@ -25,8 +25,8 @@ public class PageScrape {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-
-		for(int i = 2; i < BLOCK_COUNT; i++) {
+		System.out.println(url);
+		for(int i = 2; i < count(document); i++) {
 			String imageSelector = 
 					"#championPage > div.block3._all > div > div > div > div:nth-child(" + i + ") > a > div";
 			String nameSelector = 
@@ -47,7 +47,7 @@ public class PageScrape {
 			// <div find="morgana" class="left champ-img" style="background: url(http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/Morgana.png); background-size: cover;"></div>
 			// ^ this ugly piece of html is why the following two lines of code are required
 			// String style and imageString get the ddragon url from the style attribute
-			String style = image.attr("style");
+			String style = parseImage(image, champion);
 			String imageString = style.substring(style.indexOf("(") + 1, style.indexOf(")"));
 			// end 
 			
@@ -62,16 +62,27 @@ public class PageScrape {
 			Integer downInteger = Integer.parseInt(downString);
 			
 			// equation for block id can be found in com.lolpick.lolcounter.entity.Block
-			id = 20 * relationSwitch(relation) * id - 79;
-			id = id + i - 1;
+			Integer newId = 20 * relationSwitch(relation) * id - 79;
+			newId = newId + i - 1;
 			
-			blocks.add(new Block(id, page, nameString, imageString, laneString, upInteger, downInteger));
+			blocks.add(new Block(newId, page, nameString, imageString, laneString, upInteger, downInteger));
 			page.setBlocks(blocks);
 		}
 		
 		return page;
 	}
 	
+	private static String parseImage(Element image, String champion) {
+//		String string = null;
+//		try {
+//			string = image.attr("style");
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//			string = "(http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + champion + ".png)";
+//		}
+		return "(http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + champion + ".png)";
+	}
+
 	public void insert(String url, String champion, String relation, Integer id) {
 		Page page = scrape(url, champion, relation, id);
 		PageService.create(page);
@@ -86,5 +97,12 @@ public class PageScrape {
 		case "Good": return 4;
 		default: return 0;
 		}
+	}
+
+	public static int count(Document document) {
+		String selector = ".champ-block";
+		
+		Elements elements = document.select(selector);
+		return elements.size()-1;
 	}
 }
