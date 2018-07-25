@@ -97,7 +97,6 @@ public class Stepdefs {
 				100,
 				amumuPage,
 				"Shyvana", 
-				"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/Shyvana.png", 
 				"Jungler", 
 				3164, 
 				1654);
@@ -105,7 +104,6 @@ public class Stepdefs {
 				480,
 				blitzPage,
 				"Sona", 
-				"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/Sona.png", 
 				"Bottom", 
 				3982, 
 				1857);
@@ -113,7 +111,6 @@ public class Stepdefs {
 				2520,
 				jannaPage,
 				"Anivia", 
-				"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/Anivia.png", 
 				"Jungler", 
 				1335, 
 				1006);
@@ -121,7 +118,6 @@ public class Stepdefs {
 				5040,
 				leonaPage,
 				"Jinx", 
-				"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/Jinx.png", 
 				"", 
 				4454, 
 				1430);

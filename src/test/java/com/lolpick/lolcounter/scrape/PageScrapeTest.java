@@ -20,7 +20,6 @@ public class PageScrapeTest {
 //				100,
 //				scrape,
 //				"Shyvana", 
-//				"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/Shyvana.png", 
 //				"Jungler", 
 //				3164, 
 //				1654);
@@ -41,7 +40,6 @@ public class PageScrapeTest {
 //	    		480,
 //				scrape,
 //				"Sona", 
-//				"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/Sona.png", 
 //				"Bottom", 
 //				3982, 
 //				1857);
@@ -62,7 +60,6 @@ public class PageScrapeTest {
 //	    		2520,
 //				scrape,
 //				"Anivia", 
-//				"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/Anivia.png", 
 //				"Jungler", 
 //				1335, 
 //				1007);
@@ -83,7 +80,6 @@ public class PageScrapeTest {
 //				5040,
 //				scrape,
 //				"Jinx", 
-//				"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/Jinx.png", 
 //				"", 
 //				4454, 
 //				1430);
@@ -92,16 +88,16 @@ public class PageScrapeTest {
 //		assertTrue(PageService.create(scrape));
 //		assertTrue(BlockService.createBlocks(scrape.getBlocks()));
 //	}
-	
-	@Test
-	public void testCount() throws Exception{
-		Document camilleGood = Jsoup.connect("https://lolcounter.com/champions/camille/good").get();
-		assertEquals(PageScrape.count(camilleGood), 0);
-		
-		Document braumEven = Jsoup.connect("https://lolcounter.com/champions/braum/even").get();
-		assertEquals(PageScrape.count(braumEven), 20);
-		
-		Document braumGood = Jsoup.connect("https://lolcounter.com/champions/braum/good").get();
-		assertEquals(PageScrape.count(braumGood), 9);
-	}
+//	
+//	@Test
+//	public void testCount() throws Exception{
+//		Document camilleGood = Jsoup.connect("https://lolcounter.com/champions/camille/good").get();
+//		assertEquals(PageScrape.count(camilleGood), 0);
+//		
+//		Document braumEven = Jsoup.connect("https://lolcounter.com/champions/braum/even").get();
+//		assertEquals(PageScrape.count(braumEven), 20);
+//		
+//		Document braumGood = Jsoup.connect("https://lolcounter.com/champions/braum/good").get();
+//		assertEquals(PageScrape.count(braumGood), 9);
+//	}
 }

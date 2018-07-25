@@ -13,12 +13,5 @@ create table page (id integer not null, name varchar(255), relation varchar(255)
 
 Eclipse
 ===============
-In src/test/java
-1.  run com.lolpick.lolcounter.ChampionScrapeTest
-
-In src/main/java
-2.  run com.lolpick.lolcounter.Application
-
-In src/main/resources
-3.  fails.txt contains failed http requests.  run those manually.
-^lol 
+1.  In src/main/java run com.lolpick.lolcounter.application.Application
+2.  Terminate after zoe.  The program hangs.

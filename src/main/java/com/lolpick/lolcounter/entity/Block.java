@@ -7,18 +7,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-/*
- * Block, Champion, and Page entities are dependent upon one another because Pages are for 140 Champions 
- * which contains 20 Blocks. To track block id in the database, there must be relationships to identify 
- * records.
- * 
- * b = block id {1 - 11,200}
- * c = champion id {1 - 140}
- * r = relation id {1 - 4}:  1=weak, 2=strong, 3=even, 4=good
- * 
- * upper b = 20cr
- * lower b = 20cr - 79
- */
 @Entity
 @Table(name="block")
 public class Block {
@@ -33,9 +21,6 @@ public class Block {
 	private String name;
 	
 	@Column
-	private String image;
-	
-	@Column
 	private String lane;
 	
 	@Column
@@ -48,12 +33,11 @@ public class Block {
 		super();
 	}
 
-	public Block(Integer id, Page page, String name, String image, String lane, Integer up, Integer down) {
+	public Block(Integer id, Page page, String name, String lane, Integer up, Integer down) {
 		super();
 		this.id = id;
 		this.page = page;
 		this.name = name;
-		this.image = image;
 		this.lane = lane;
 		this.up = up;
 		this.down = down;
@@ -73,14 +57,6 @@ public class Block {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setUrl(String image) {
-		this.image = image;
 	}
 
 	public String getLane() {
@@ -115,15 +91,10 @@ public class Block {
 		this.page = page;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((lane == null) ? 0 : lane.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((page == null) ? 0 : page.hashCode());
@@ -139,11 +110,6 @@ public class Block {
 		if (getClass() != obj.getClass())
 			return false;
 		Block other = (Block) obj;
-		if (image == null) {
-			if (other.image != null)
-				return false;
-		} else if (!image.equals(other.image))
-			return false;
 		if (lane == null) {
 			if (other.lane != null)
 				return false;
@@ -164,7 +130,7 @@ public class Block {
 
 	@Override
 	public String toString() {
-		return "Block [id=" + id + ", page=" + page + ", name=" + name + ", image=" + image + ", lane=" + lane + ", up="
+		return "Block [id=" + id + ", page=" + page + ", name=" + name + ", lane=" + lane + ", up="
 				+ up + ", down=" + down + "]";
 	}
 }

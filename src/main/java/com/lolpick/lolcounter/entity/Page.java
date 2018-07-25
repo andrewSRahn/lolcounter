@@ -10,6 +10,22 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/*
+ * Champion, relation, and page ids are dependent upon one another because there are four Pages
+ * for 140 Champions and each page must be identified uniquely. 
+ * 
+ * c = champion id {1 - 140}
+ * r = relation id {1 - 4}:  1=weak, 2=strong, 3=even, 4=good
+ * m = constant {1 - 4}:
+ *	(id % 4) == 1 return 3
+ *	(id % 4) == 2 return 2
+ *	(id % 4) == 3 return 1
+ *	(id % 4) == 0 return 0
+ * p = page id {1 - 560}
+ * 
+ * p = cr + m(c-1)
+ * 
+ */
 @Entity
 @Table(name="page")
 public class Page {
