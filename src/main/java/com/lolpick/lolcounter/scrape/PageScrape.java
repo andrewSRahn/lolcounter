@@ -59,10 +59,10 @@ public class PageScrape {
 		return page;
 	}
 
-	public static void insert(String url, String champion, String relation, Integer championId) {
+	public static boolean insert(String url, String champion, String relation, Integer championId) {
 		Page page = scrape(url, champion, relation, championId);
-		PageService.create(page);
-		BlockService.createBlocks(page.getBlocks());
+		boolean result = PageService.create(page);
+		return result & BlockService.createBlocks(page.getBlocks());
 	}
 	
 	private static int relationSwitch(String relation) {

@@ -5,28 +5,29 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.lolpick.lolcounter.dao.ChampionDao;
-import com.lolpick.lolcounter.entity.Champion;
+import com.lolpick.lolcounter.dao.RoleDao;
+import com.lolpick.lolcounter.entity.Role;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
 
-public class ChampionDaoImpl implements ChampionDao {
-	@Override 
-	public boolean createChampions(List<Champion> champions){
-		for(Champion champion: champions)
-			if(!createChampion(champion))
-				return false;
+public class RoleDaoImpl implements RoleDao{
 
+	@Override
+	public boolean create(List<Role> roles) {
+		for(Role role: roles)
+			if(!createRole(role))
+				return false;
+		
 		return true;
 	}
 	
-	private boolean createChampion(Champion champion) {
+	private boolean createRole(Role role) {
 		Session session = null;
 		Transaction transaction = null;
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(champion);
+			session.saveOrUpdate(role);
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
@@ -38,14 +39,21 @@ public class ChampionDaoImpl implements ChampionDao {
 		
 		return false;
 	}
-	
+
 	@Override
-	public List<Champion> readChampions() {
+	public List<Role> readChampion(String champion) {
 		Session session = null;
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			return session.createQuery("from Champion", Champion.class).getResultList();
+			String query = "select r.role_id, r.champion_id "
+					+ "from Role r, Champion_role cr, Champion ch "
+					+ "where r.role_id=cr.role_id "
+					+ "and cr.champion_id=ch.champion_id"
+					+ "and ch.name=:name";
+			return session.createQuery(query, Role.class)
+					.setParameter("name", champion)
+					.getResultList();
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -53,15 +61,5 @@ public class ChampionDaoImpl implements ChampionDao {
 		}
 		
 		return null;
-	}
-	
-	@Override
-	public Champion readChampion(String champion) {
-		List<Champion> champions = readChampions();
-		
-		return champions.stream()
-				.filter( c -> !c.getName().equals(champion))
-				.findFirst()
-				.orElse(null);
 	}
 }

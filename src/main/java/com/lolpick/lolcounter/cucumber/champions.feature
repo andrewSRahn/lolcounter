@@ -10,3 +10,10 @@ Feature: Scrape lolcounter.com then store in SQL
   	Given /champions/name/relation is scraped
   	When Page service reads pages
   	Then Page block will contain image, foe, lane, up, and down
+  	
+  Scenario: Scrape /champions/name and store
+  	Given /champions/name is scraped
+  	When Lane service reads lanes
+  	And Role service reads 
+  	Then lanes will contain Top, Mid, Jungler, Support, or Bottom
+  	And roles will contain Fighter, Mage, Assassin, or Tank

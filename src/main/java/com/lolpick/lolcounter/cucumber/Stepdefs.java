@@ -1,23 +1,28 @@
 package com.lolpick.lolcounter.cucumber;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 import com.lolpick.lolcounter.entity.Block;
 import com.lolpick.lolcounter.entity.Champion;
+import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.entity.Page;
+import com.lolpick.lolcounter.entity.Role;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
+import com.lolpick.lolcounter.scrape.NameScrape;
 import com.lolpick.lolcounter.scrape.PageScrape;
 import com.lolpick.lolcounter.service.ChampionService;
+import com.lolpick.lolcounter.service.LaneService;
 import com.lolpick.lolcounter.service.PageService;
+import com.lolpick.lolcounter.service.RoleService;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
-import static org.junit.Assert.*;
 
 public class Stepdefs {
 	List<Champion> champions = null;
@@ -127,4 +132,100 @@ public class Stepdefs {
 		assertTrue(jannaPage.getBlocks().contains(jannaValidate));
 		assertTrue(leonaPage.getBlocks().contains(leonaValidate));
 	}
+	
+	List<Lane> amumuLanes = null;
+	List<Lane> blitzLanes = null;
+	List<Lane> jannaLanes = null;
+	List<Lane> leonaLanes = null;
+	
+	List<Role> amumuRoles = null;
+	List<Role> blitzRoles = null;
+	List<Role> jannaRoles = null;
+	List<Role> leonaRoles = null;
+	
+	@Given("^/champions/name is scraped$")
+	public void champions_name_is_scraped() throws Exception {
+		for(String name: names) {
+			NameScrape scrape = new NameScrape(name);
+			assertTrue(LaneService.create(scrape.getLanes()));
+			assertTrue(RoleService.create(scrape.getRoles()));
+		}
+	}  
+
+	@When("^Lane service reads lanes$")
+	public void lane_service_reads_lanes() throws Exception {
+		amumuLanes = LaneService.readChampion("Amumu");
+		blitzLanes = LaneService.readChampion("Blitzcrank");
+		jannaLanes = LaneService.readChampion("Janna");
+		leonaLanes = LaneService.readChampion("Leona");
+	}
+
+	@When("^Role service reads$")
+	public void role_service_reads() throws Exception {
+		amumuRoles = RoleService.readChampion("Amumu");
+		blitzRoles = RoleService.readChampion("Blitzcrank");
+		jannaRoles = RoleService.readChampion("Janna");
+		leonaRoles = RoleService.readChampion("Leona");
+	}
+
+	@Then("^lanes will contain Top, Mid, Jungler, Support, or Bottom$")
+	public void lanes_will_contain_Top_Mid_Jungler_Support_or_Bottom() throws Exception {
+		Lane amumuLane = amumuLanes.stream()
+				.filter(l -> !l.getLane().equals("Jungler"))
+				.findFirst()
+				.orElse(null);
+		
+		Lane blitzLane = blitzLanes.stream()
+		.filter(l -> !l.getLane().equals("Support")
+				|| !l.getLane().equals("Bottom")
+				|| !l.getLane().equals("Jungler"))
+		.findFirst()
+		.orElse(null);
+		
+		Lane jannaLane = jannaLanes.stream()
+				.filter(l -> !l.getLane().equals("Mid")
+						|| !l.getLane().equals("Bottom")
+						|| !l.getLane().equals("Support"))
+				.findFirst()
+				.orElse(null);
+		
+		Lane leonaLane = leonaLanes.stream()
+				.filter(l -> !l.getLane().equals("Support")
+						|| !l.getLane().equals("Bottom"))
+				.findFirst()
+				.orElse(null);
+		
+		assertNotNull(amumuLane);
+		assertNotNull(blitzLane);
+		assertNotNull(jannaLane);
+		assertNotNull(leonaLane);
+	}
+
+	@Then("^roles will contain Fighter, Mage, Assassin, or Tank$")
+	public void roles_will_contain_Fighter_Mage_Assassin_or_Tank() throws Exception {
+		Role amumu = amumuRoles.stream()
+				.filter( r -> !r.getRole().equals("Tank"))
+				.findFirst()
+				.orElse(null);
+		
+		Role blitz = blitzRoles.stream()
+				.filter( r -> !r.getRole().equals("Mage"))
+				.findFirst()
+				.orElse(null);
+		
+		Role janna = jannaRoles.stream()
+				.findFirst()
+				.orElse(null);
+		
+		Role leona = leonaRoles.stream()
+				.filter( r -> !r.getRole().equals("Tank"))
+				.findFirst()
+				.orElse(null);
+		
+		assertNotNull(amumu);
+		assertNotNull(blitz);
+		assertNull(janna);
+		assertNotNull(leona);
+	}
+	
 }

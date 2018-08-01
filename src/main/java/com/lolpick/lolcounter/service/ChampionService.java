@@ -15,4 +15,8 @@ public class ChampionService {
 	public static List<Champion> readChampions(){
 		return daoimpl.readChampions();
 	}
+	
+	public static Champion readChampion(String champion) {
+		return daoimpl.readChampion(champion);
+	}
 }

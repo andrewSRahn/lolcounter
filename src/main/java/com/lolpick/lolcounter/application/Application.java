@@ -7,10 +7,16 @@ import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
 import com.lolpick.lolcounter.scrape.PageScrape;
 import com.lolpick.lolcounter.service.ChampionService;
+import com.lolpick.lolcounter.service.LaneService;
+import com.lolpick.lolcounter.service.RoleService;
 
 public class Application {
 	public static void main(String[] args) {
 		ChampionScrape.insert();
+		
+		LaneService.initialize();
+		RoleService.initialize();
+		
 		List<Champion> champions = ChampionService.readChampions();
 		List<String> relations = Arrays.asList("Weak", "Strong", "Even", "Good");
 		
@@ -20,8 +26,10 @@ public class Application {
 				String url = "https://lolcounter.com/champions/" + name + "/" + relation.toLowerCase();
 				
 				try {
-					PageScrape.insert(url, champion.getName(), relation, champion.getId());
-					System.out.println(url);
+					if(PageScrape.insert(url, champion.getName(), relation, champion.getId()))
+						System.out.println(url);
+					else
+						throw new Exception(url + " failed");
 
 				} catch(Exception e) {
 					Fail.appendToFile("src/main/resources/fails.txt", url, name, relation, champion.getId());
