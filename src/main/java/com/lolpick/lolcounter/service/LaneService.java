@@ -27,4 +27,8 @@ public class LaneService {
 		
 		return LaneService.create(lanes);
 	}
+	
+	public static boolean create(List<Lane> roles, String champion) {
+		return dao.create(roles, champion);
+	}
 }

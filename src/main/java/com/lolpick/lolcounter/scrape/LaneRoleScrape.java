@@ -8,15 +8,20 @@ import org.jsoup.nodes.Document;
 
 import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.entity.Role;
+import com.lolpick.lolcounter.service.ChampionService;
+import com.lolpick.lolcounter.service.LaneService;
+import com.lolpick.lolcounter.service.RoleService;
 
-public class NameScrape {
+public class LaneRoleScrape {
 	private List<Lane> lanes;
 	private List<Role> roles;
+	private Integer championId;
 	private String name;
 	
-	public NameScrape(String name) {
+	public LaneRoleScrape(String name) {
 		this.lanes = new ArrayList<>();
 		this.roles = new ArrayList<>();
+		this.championId = ChampionService.readChampion(name).getId();
 		this.name = name;
 	}
 	
@@ -61,12 +66,18 @@ public class NameScrape {
 			roles.remove(new Role(7, "Support"));
 			lanes.add(new Lane(1, "Support"));
 		}
-		
-		System.out.println(name);
-		System.out.println(lanes);
-		System.out.println(roles);
+		System.out.println(this.championId);
+		System.out.println(this.name);
+		System.out.println(this.lanes);
+		System.out.println(this.roles);
 		
 		return true;
+	}
+	
+	public boolean insert() {
+		boolean lane = LaneService.create(this.lanes, this.name);
+		boolean role = RoleService.create(this.roles, this.name);
+		return lane && role;
 	}
 	
 	private Integer laneSwitch(String lane) {

@@ -62,4 +62,10 @@ public class RoleDaoImpl implements RoleDao{
 		
 		return null;
 	}
+
+	@Override
+	public boolean create(List<Role> roles, String champion) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

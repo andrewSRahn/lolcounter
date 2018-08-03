@@ -28,4 +28,8 @@ public class RoleService {
 		
 		return create(roles);		
 	}
+	
+	public static boolean create(List<Role> roles, String champion) {
+		return dao.create(roles, champion);
+	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
+import com.lolpick.lolcounter.scrape.LaneRoleScrape;
 import com.lolpick.lolcounter.scrape.PageScrape;
 import com.lolpick.lolcounter.service.ChampionService;
 import com.lolpick.lolcounter.service.LaneService;

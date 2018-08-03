@@ -60,7 +60,7 @@ public class ChampionDaoImpl implements ChampionDao {
 		List<Champion> champions = readChampions();
 		
 		return champions.stream()
-				.filter( c -> !c.getName().equals(champion))
+				.filter( c -> c.getName().equals(champion))
 				.findFirst()
 				.orElse(null);
 	}

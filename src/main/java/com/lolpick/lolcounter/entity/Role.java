@@ -25,8 +25,8 @@ public class Role {
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="champion_role", 
-		joinColumns= {@JoinColumn(name="champion_id")},
-		inverseJoinColumns= {@JoinColumn(name="role_id")})
+		joinColumns= {@JoinColumn(name="name")},
+		inverseJoinColumns= {@JoinColumn(name="champion_role")})
 	List<Champion> champions;
 	
 	public Role() {

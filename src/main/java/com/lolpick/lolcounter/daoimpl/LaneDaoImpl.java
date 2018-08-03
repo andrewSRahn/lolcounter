@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.lolpick.lolcounter.dao.LaneDao;
+import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
 
@@ -46,4 +47,27 @@ public class LaneDaoImpl implements LaneDao{
 		return null;
 	}
 
+	@Override
+	public boolean create(List<Lane> lanes, String champion) {
+		Session session = null;
+		Transaction transaction = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			
+			Champion champ = session.createQuery("from Champion where name like :name", Champion.class)
+					.setParameter("name", champion)
+					.getSingleResult();
+			
+			System.out.println(champ);
+			
+			
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }

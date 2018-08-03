@@ -7,8 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,7 +17,6 @@ import javax.persistence.Table;
 @Table(name="lane")
 public class Lane {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="lane_id")
 	private Integer id;
 	
@@ -28,8 +25,8 @@ public class Lane {
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="champion_lane", 
-			joinColumns= {@JoinColumn(name="lane_id")},
-			inverseJoinColumns= {@JoinColumn(name="champion_id")})
+			joinColumns= {@JoinColumn(name="champion_lane")},
+			inverseJoinColumns= {@JoinColumn(name="name")})
 	private List<Champion> champions;
 	
 	public Lane(Integer id, String lane) {

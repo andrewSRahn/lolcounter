@@ -13,7 +13,7 @@ import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.entity.Page;
 import com.lolpick.lolcounter.entity.Role;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
-import com.lolpick.lolcounter.scrape.NameScrape;
+import com.lolpick.lolcounter.scrape.LaneRoleScrape;
 import com.lolpick.lolcounter.scrape.PageScrape;
 import com.lolpick.lolcounter.service.ChampionService;
 import com.lolpick.lolcounter.service.LaneService;
@@ -146,7 +146,7 @@ public class Stepdefs {
 	@Given("^/champions/name is scraped$")
 	public void champions_name_is_scraped() throws Exception {
 		for(String name: names) {
-			NameScrape scrape = new NameScrape(name);
+			LaneRoleScrape scrape = new LaneRoleScrape(name);
 			assertTrue(LaneService.create(scrape.getLanes()));
 			assertTrue(RoleService.create(scrape.getRoles()));
 		}

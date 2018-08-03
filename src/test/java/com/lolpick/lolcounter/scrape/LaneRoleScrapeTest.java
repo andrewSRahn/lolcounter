@@ -1,5 +1,8 @@
 package com.lolpick.lolcounter.scrape;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -7,12 +10,10 @@ import org.junit.Test;
 import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.entity.Role;
 
-import static org.junit.Assert.*;
-
-public class NameScrapeTest {
+public class LaneRoleScrapeTest {
 	@Test
 	public void testAmumu() {
-		NameScrape amumu = new NameScrape("amumu");
+		LaneRoleScrape amumu = new LaneRoleScrape("Amumu");
 		assertTrue(amumu.scrape());
 		List<Lane> lanes = amumu.getLanes();
 		List<Role> roles = amumu.getRoles();
@@ -24,7 +25,7 @@ public class NameScrapeTest {
 	
 	@Test
 	public void testBlitz() {
-		NameScrape blitz = new NameScrape("blitzcrank");
+		LaneRoleScrape blitz = new LaneRoleScrape("Blitzcrank");
 		assertTrue(blitz.scrape());
 		List<Lane> lanes = blitz.getLanes();
 		List<Role> roles = blitz.getRoles();
@@ -39,7 +40,7 @@ public class NameScrapeTest {
 	
 	@Test
 	public void testLeona() {
-		NameScrape leona = new NameScrape("leona");
+		LaneRoleScrape leona = new LaneRoleScrape("Leona");
 		assertTrue(leona.scrape());
 		List<Lane> lanes = leona.getLanes();
 		List<Role> roles = leona.getRoles();
@@ -53,7 +54,7 @@ public class NameScrapeTest {
 	
 	@Test
 	public void testJanna() {
-		NameScrape janna = new NameScrape("janna");
+		LaneRoleScrape janna = new LaneRoleScrape("Janna");
 		assertTrue(janna.scrape());
 		List<Lane> lanes = janna.getLanes();
 		List<Role> roles = janna.getRoles();
