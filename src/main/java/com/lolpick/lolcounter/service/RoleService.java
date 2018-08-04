@@ -12,10 +12,6 @@ public class RoleService {
 		return dao.create(roles);
 	}
 	
-	public static List<Role> readChampion(String champion){
-		return dao.readChampion(champion);
-	}
-
 	public static boolean initialize() {
 		List<Role> roles = Arrays.asList(
 				new Role(0, "Assassin"),
@@ -31,5 +27,9 @@ public class RoleService {
 	
 	public static boolean create(List<Role> roles, String champion) {
 		return dao.create(roles, champion);
+	}
+	
+	public static Role read(String role) {
+		return dao.read(role);
 	}
 }

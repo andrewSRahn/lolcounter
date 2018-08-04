@@ -42,12 +42,6 @@ public class LaneDaoImpl implements LaneDao{
 	}
 
 	@Override
-	public List<Lane> readChampion(String champion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean create(List<Lane> lanes, String champion) {
 		Session session = null;
 		Transaction transaction = null;
@@ -60,14 +54,43 @@ public class LaneDaoImpl implements LaneDao{
 					.setParameter("name", champion)
 					.getSingleResult();
 			
-			System.out.println(champ);
+			for(Lane lane: lanes) {
+				lane.getChampions().add(champ);
+				session.saveOrUpdate(lane);
+			}
 			
+			champ.setLanes(lanes);
+			
+			session.saveOrUpdate(champ);
+			transaction.commit();
 			
 			return true;
 		} catch(Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public Lane read(String lane) {
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			
+			return session.createQuery("from Lane where champion_lane=:lane", Lane.class)
+					.setParameter("lane", lane)
+					.getSingleResult();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return null;
 	}
 }

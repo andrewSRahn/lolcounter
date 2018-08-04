@@ -8,18 +8,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
+//@IdClass(Lane.class)
 @Table(name="lane")
 public class Lane {
 	@Id
 	@Column(name="lane_id")
 	private Integer id;
 	
+	//@Id
 	@Column(name="champion_lane")
 	private String lane;
 	

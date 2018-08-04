@@ -22,7 +22,19 @@ public class Application {
 		List<String> relations = Arrays.asList("Weak", "Strong", "Even", "Good");
 		
 		for(Champion champion: champions) {
+			LaneRoleScrape laneRoleScrape = new LaneRoleScrape(champion.getName());
+			
+			laneRoleScrape.scrape();
+			laneRoleScrape.insert();
+				
+
+			
+			System.out.println(laneRoleScrape.getChampionId() + ":" + laneRoleScrape.getName());
+			System.out.println(laneRoleScrape.getLanes());
+			System.out.println(laneRoleScrape.getRoles());
+
 			for(String relation: relations) {
+				
 				String name = champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
 				String url = "https://lolcounter.com/champions/" + name + "/" + relation.toLowerCase();
 				
@@ -38,5 +50,7 @@ public class Application {
 				}
 			}
 		}
+		
+		System.out.println("Done!");
 	}
 }

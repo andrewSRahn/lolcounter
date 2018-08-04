@@ -6,8 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.lolpick.lolcounter.dao.RoleDao;
+import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Role;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
+import com.lolpick.lolcounter.service.ChampionService;
 
 public class RoleDaoImpl implements RoleDao{
 
@@ -41,19 +43,45 @@ public class RoleDaoImpl implements RoleDao{
 	}
 
 	@Override
-	public List<Role> readChampion(String champion) {
+	public boolean create(List<Role> roles, String champion) {
+		Session session = null;
+		Transaction transaction = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			
+			Champion champ = ChampionService.readChampion(champion);
+			champ.setRoles(roles);
+
+			for (Role role: roles) {
+				role.getChampions().add(champ);
+				session.saveOrUpdate(role);
+			}
+			
+			session.saveOrUpdate(champ);
+			
+			transaction.commit();
+			return true;
+		} catch(Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public Role read(String role) {
 		Session session = null;
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			String query = "select r.role_id, r.champion_id "
-					+ "from Role r, Champion_role cr, Champion ch "
-					+ "where r.role_id=cr.role_id "
-					+ "and cr.champion_id=ch.champion_id"
-					+ "and ch.name=:name";
-			return session.createQuery(query, Role.class)
-					.setParameter("name", champion)
-					.getResultList();
+			return session.createQuery("from Role where champion_role=:r", Role.class)
+					.setParameter("r", role)
+					.getSingleResult();
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -61,11 +89,5 @@ public class RoleDaoImpl implements RoleDao{
 		}
 		
 		return null;
-	}
-
-	@Override
-	public boolean create(List<Role> roles, String champion) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

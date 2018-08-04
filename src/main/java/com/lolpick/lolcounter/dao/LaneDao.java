@@ -6,6 +6,6 @@ import com.lolpick.lolcounter.entity.Lane;
 
 public interface LaneDao {
 	public boolean create(List<Lane> lanes);
-	public boolean create(List<Lane> roles, String champion);
-	public List<Lane> readChampion(String champion);
+	public boolean create(List<Lane> lanes, String champion);
+	public Lane read(String lane);
 }

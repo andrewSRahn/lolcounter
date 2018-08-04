@@ -13,10 +13,6 @@ public class LaneService {
 		return dao.create(lanes);
 	}
 	
-	public static List<Lane> readChampion(String champion){
-		return dao.readChampion(champion);
-	}
-
 	public static boolean initialize() {
 		List<Lane> lanes = Arrays.asList(
 				new Lane(0, "Bottom"),
@@ -28,7 +24,11 @@ public class LaneService {
 		return LaneService.create(lanes);
 	}
 	
-	public static boolean create(List<Lane> roles, String champion) {
-		return dao.create(roles, champion);
+	public static boolean create(List<Lane> lanes, String champion) {
+		return dao.create(lanes, champion);
+	}
+	
+	public static Lane read(String lane) {
+		return dao.read(lane);
 	}
 }

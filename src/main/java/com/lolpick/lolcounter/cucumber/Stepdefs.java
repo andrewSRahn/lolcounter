@@ -154,18 +154,18 @@ public class Stepdefs {
 
 	@When("^Lane service reads lanes$")
 	public void lane_service_reads_lanes() throws Exception {
-		amumuLanes = LaneService.readChampion("Amumu");
-		blitzLanes = LaneService.readChampion("Blitzcrank");
-		jannaLanes = LaneService.readChampion("Janna");
-		leonaLanes = LaneService.readChampion("Leona");
+		amumuLanes = ChampionService.readChampion("Amumu").getLanes();
+		blitzLanes = ChampionService.readChampion("Blitzcrank").getLanes();
+		jannaLanes = ChampionService.readChampion("Janna").getLanes();
+		leonaLanes = ChampionService.readChampion("Leona").getLanes();
 	}
 
 	@When("^Role service reads$")
 	public void role_service_reads() throws Exception {
-		amumuRoles = RoleService.readChampion("Amumu");
-		blitzRoles = RoleService.readChampion("Blitzcrank");
-		jannaRoles = RoleService.readChampion("Janna");
-		leonaRoles = RoleService.readChampion("Leona");
+		amumuRoles = ChampionService.readChampion("Amumu").getRoles();
+		blitzRoles = ChampionService.readChampion("Blitzcrank").getRoles();
+		jannaRoles = ChampionService.readChampion("Janna").getRoles();
+		leonaRoles = ChampionService.readChampion("Leona").getRoles();
 	}
 
 	@Then("^lanes will contain Top, Mid, Jungler, Support, or Bottom$")

@@ -25,6 +25,14 @@ public class LaneRoleScrape {
 		this.name = name;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
+	public Integer getChampionId() {
+		return this.championId;
+	}
+	
 	public List<Lane> getLanes() {
 		return lanes;
 	}
@@ -37,7 +45,8 @@ public class LaneRoleScrape {
 		Document document = null;
 		
 		try {
-			String url = "https://lolcounter.com/champions/" + this.name;
+			String name = this.name.toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
+			String url = "https://lolcounter.com/champions/" + name;
 			document = Jsoup.connect(url).get();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -48,14 +57,14 @@ public class LaneRoleScrape {
 			String selector = "div.role:nth-child(" + i + ")";
 			String role = document.select(selector).text();
 			Integer id = roleSwitch(role);
-			this.roles.add(new Role(id, role));
+			this.roles.add(RoleService.read(role));
 		}
 
 		for(int i = 1; i < countLanes(document); i++) {
 			String selector = "div.lanes > div.lane:nth-child(" + i + ")";
 			String lane = document.select(selector).text();
 			Integer id = laneSwitch(lane);
-			this.lanes.add(new Lane(id, lane));
+			this.lanes.add(LaneService.read(lane));
 		}
 		
 		boolean bottom = lanes.contains(new Lane(0, "Bottom"));
@@ -66,10 +75,6 @@ public class LaneRoleScrape {
 			roles.remove(new Role(7, "Support"));
 			lanes.add(new Lane(1, "Support"));
 		}
-		System.out.println(this.championId);
-		System.out.println(this.name);
-		System.out.println(this.lanes);
-		System.out.println(this.roles);
 		
 		return true;
 	}

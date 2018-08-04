@@ -69,6 +69,6 @@ public class Champion {
 
 	@Override
 	public String toString() {
-		return "Champion [id=" + id + ", name=" + name + "]";
+		return "Champion [id=" + id + ", name=" + name + ", lanes=" + lanes + ", roles=" + roles + "]";
 	}
 }
