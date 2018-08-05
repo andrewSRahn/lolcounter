@@ -3,7 +3,7 @@ package com.lolpick.lolcounter.scrape;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -20,8 +20,8 @@ public class LaneRoleScrapeTest {
 		assertTrue(amumu.insert());
 		
 		Champion mu = ChampionService.readChampion("Amumu");
-		List<Lane> lanes = mu.getLanes();
-		List<Role> roles = mu.getRoles();
+		Set<Lane> lanes = mu.getLanes();
+		Set<Role> roles = mu.getRoles();
 
 		assertTrue(lanes.contains(new Lane(2, "Jungler")));
 		assertTrue(roles.contains(new Role(4, "Magical Damage")));
@@ -35,8 +35,8 @@ public class LaneRoleScrapeTest {
 		assertTrue(blitz.insert());
 		
 		Champion blitzcrank = ChampionService.readChampion("Blitzcrank");
-		List<Lane> lanes = blitzcrank.getLanes();
-		List<Role> roles = blitzcrank.getRoles();
+		Set<Lane> lanes = blitzcrank.getLanes();
+		Set<Role> roles = blitzcrank.getRoles();
 		
 		assertTrue(lanes.contains(new Lane(2, "Jungler")));
 		assertTrue(lanes.contains(new Lane(1, "Support")));

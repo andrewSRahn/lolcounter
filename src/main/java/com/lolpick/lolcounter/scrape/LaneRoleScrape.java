@@ -1,7 +1,7 @@
 package com.lolpick.lolcounter.scrape;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,14 +13,14 @@ import com.lolpick.lolcounter.service.LaneService;
 import com.lolpick.lolcounter.service.RoleService;
 
 public class LaneRoleScrape {
-	private List<Lane> lanes;
-	private List<Role> roles;
+	private Set<Lane> lanes;
+	private Set<Role> roles;
 	private Integer championId;
 	private String name;
 	
 	public LaneRoleScrape(String name) {
-		this.lanes = new ArrayList<>();
-		this.roles = new ArrayList<>();
+		this.lanes = new HashSet<>();
+		this.roles = new HashSet<>();
 		this.championId = ChampionService.readChampion(name).getId();
 		this.name = name;
 	}
@@ -33,11 +33,11 @@ public class LaneRoleScrape {
 		return this.championId;
 	}
 	
-	public List<Lane> getLanes() {
+	public Set<Lane> getLanes() {
 		return lanes;
 	}
 
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 

@@ -11,7 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="role")
@@ -25,8 +29,16 @@ public class Role {
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="champion_role", 
-		joinColumns= {@JoinColumn(name="name")},
-		inverseJoinColumns= {@JoinColumn(name="champion_role")})
+			joinColumns= {@JoinColumn(name="name")},
+			inverseJoinColumns= {@JoinColumn(name="champion_role")})
+	@SequenceGenerator(
+			name="champion_role_sequence",
+			initialValue=1,
+			allocationSize=500)
+	@CollectionId(
+			columns = @Column(name="id"),
+			type = @Type(type="long"),
+			generator = "champion_role_sequence")
 	List<Champion> champions;
 	
 	public Role() {

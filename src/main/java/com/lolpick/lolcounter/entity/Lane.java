@@ -8,21 +8,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.Type;
+
 @Entity
-//@IdClass(Lane.class)
 @Table(name="lane")
 public class Lane {
 	@Id
 	@Column(name="lane_id")
 	private Integer id;
 	
-	//@Id
 	@Column(name="champion_lane")
 	private String lane;
 	
@@ -30,6 +31,14 @@ public class Lane {
 	@JoinTable(name="champion_lane", 
 			joinColumns= {@JoinColumn(name="champion_lane")},
 			inverseJoinColumns= {@JoinColumn(name="name")})
+	@SequenceGenerator(
+			name="champion_lane_sequence", 
+			initialValue=1, 
+			allocationSize=500)
+	@CollectionId(
+			columns = @Column(name="id"),
+			type = @Type(type="long"),
+			generator = "champion_lane_sequence")
 	private List<Champion> champions;
 	
 	public Lane(Integer id, String lane) {

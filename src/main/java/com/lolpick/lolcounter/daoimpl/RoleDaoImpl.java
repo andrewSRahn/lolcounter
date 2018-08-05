@@ -1,6 +1,6 @@
 package com.lolpick.lolcounter.daoimpl;
 
-import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,12 +9,11 @@ import com.lolpick.lolcounter.dao.RoleDao;
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Role;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
-import com.lolpick.lolcounter.service.ChampionService;
 
 public class RoleDaoImpl implements RoleDao{
 
 	@Override
-	public boolean create(List<Role> roles) {
+	public boolean create(Set<Role> roles) {
 		for(Role role: roles)
 			if(!createRole(role))
 				return false;
@@ -43,7 +42,7 @@ public class RoleDaoImpl implements RoleDao{
 	}
 
 	@Override
-	public boolean create(List<Role> roles, String champion) {
+	public boolean create(Set<Role> roles, String champion) {
 		Session session = null;
 		Transaction transaction = null;
 		
@@ -51,17 +50,20 @@ public class RoleDaoImpl implements RoleDao{
 			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			
-			Champion champ = ChampionService.readChampion(champion);
-			champ.setRoles(roles);
+			Champion champ = session.createQuery("from Champion where name like :name", Champion.class)
+					.setParameter("name", champion)
+					.getSingleResult();
 
 			for (Role role: roles) {
 				role.getChampions().add(champ);
 				session.saveOrUpdate(role);
 			}
 			
-			session.saveOrUpdate(champ);
+			champ.setRoles(roles);
 			
+			session.saveOrUpdate(champ);
 			transaction.commit();
+			
 			return true;
 		} catch(Exception e) {
 			transaction.rollback();

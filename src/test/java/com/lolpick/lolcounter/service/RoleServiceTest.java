@@ -2,8 +2,9 @@ package com.lolpick.lolcounter.service;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -29,9 +30,10 @@ public class RoleServiceTest {
 	
 	@Test
 	public void testCreate() {
-		List<Role> roles = Arrays.asList(
+		Set<Role> roles = Stream.of(
 				RoleService.read("Tank"),
-				RoleService.read("Magical Damage"));
+				RoleService.read("Magical Damage"))
+				.collect(Collectors.toSet());
 		assertTrue(RoleService.create(roles, "Amumu"));
 		
 	}

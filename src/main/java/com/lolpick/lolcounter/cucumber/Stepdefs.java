@@ -1,11 +1,12 @@
 package com.lolpick.lolcounter.cucumber;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import com.lolpick.lolcounter.entity.Block;
 import com.lolpick.lolcounter.entity.Champion;
@@ -133,15 +134,15 @@ public class Stepdefs {
 		assertTrue(leonaPage.getBlocks().contains(leonaValidate));
 	}
 	
-	List<Lane> amumuLanes = null;
-	List<Lane> blitzLanes = null;
-	List<Lane> jannaLanes = null;
-	List<Lane> leonaLanes = null;
+	Set<Lane> amumuLanes = null;
+	Set<Lane> blitzLanes = null;
+	Set<Lane> jannaLanes = null;
+	Set<Lane> leonaLanes = null;
 	
-	List<Role> amumuRoles = null;
-	List<Role> blitzRoles = null;
-	List<Role> jannaRoles = null;
-	List<Role> leonaRoles = null;
+	Set<Role> amumuRoles = null;
+	Set<Role> blitzRoles = null;
+	Set<Role> jannaRoles = null;
+	Set<Role> leonaRoles = null;
 	
 	@Given("^/champions/name is scraped$")
 	public void champions_name_is_scraped() throws Exception {

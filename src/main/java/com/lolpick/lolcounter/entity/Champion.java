@@ -1,6 +1,6 @@
 package com.lolpick.lolcounter.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,10 +20,10 @@ public class Champion {
 	private String name;
 	
 	@ManyToMany(mappedBy="champions", cascade=CascadeType.ALL)
-	private List<Lane> lanes;
+	private Set<Lane> lanes;
 	
 	@ManyToMany(mappedBy="champions", cascade=CascadeType.ALL)
-	private List<Role> roles;
+	private Set<Role> roles;
 
 	public Champion(Integer id, String name) {
 		super();
@@ -51,19 +51,19 @@ public class Champion {
 		this.name = name;
 	}
 
-	public List<Lane> getLanes() {
+	public Set<Lane> getLanes() {
 		return lanes;
 	}
 
-	public void setLanes(List<Lane> lanes) {
+	public void setLanes(Set<Lane> lanes) {
 		this.lanes = lanes;
 	}
 
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 

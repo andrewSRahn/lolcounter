@@ -1,6 +1,6 @@
 package com.lolpick.lolcounter.daoimpl;
 
-import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -13,7 +13,7 @@ import com.lolpick.lolcounter.hibernate.HibernateUtil;
 public class LaneDaoImpl implements LaneDao{
 
 	@Override
-	public boolean create(List<Lane> lanes) {
+	public boolean create(Set<Lane> lanes) {
 		for(Lane lane: lanes)
 			if(!createLane(lane))
 				return false;
@@ -42,7 +42,7 @@ public class LaneDaoImpl implements LaneDao{
 	}
 
 	@Override
-	public boolean create(List<Lane> lanes, String champion) {
+	public boolean create(Set<Lane> lanes, String champion) {
 		Session session = null;
 		Transaction transaction = null;
 		

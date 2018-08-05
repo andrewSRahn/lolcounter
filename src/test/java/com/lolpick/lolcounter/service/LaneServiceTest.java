@@ -2,8 +2,9 @@ package com.lolpick.lolcounter.service;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -18,8 +19,9 @@ public class LaneServiceTest {
 	
 	@Test
 	public void testCreate() {		
-		List<Lane> lanes = Arrays.asList(
-				LaneService.read("Jungler"));
+		Set<Lane> lanes = Stream.of(
+				LaneService.read("Jungler"))
+				.collect(Collectors.toSet());
 		
 		assertTrue(LaneService.create(lanes, "Amumu"));
 	}
