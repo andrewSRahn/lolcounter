@@ -33,4 +33,8 @@ public class LaneService {
 	public static Lane read(String lane) {
 		return dao.read(lane);
 	}
+	
+	public static boolean update(Set<Lane> lanes) {
+		return dao.update(lanes);
+	}
 }

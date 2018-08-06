@@ -11,7 +11,40 @@ import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
 
 public class LaneDaoImpl implements LaneDao{
-
+	
+	@Override
+	public boolean update(Set<Lane> lanes) {
+		for(Lane lane: lanes) 
+			if(!updateLane(lane))
+				return false;
+			
+		return true;
+	}
+	
+	private boolean updateLane(Lane lane) {
+		Session session = null;
+		Transaction transaction = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			
+			Lane current = session.get(Lane.class, lane.getId());
+			current.setChampions(lane.getChampions());
+			session.update(current);
+			transaction.commit();
+			
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public boolean create(Set<Lane> lanes) {
 		for(Lane lane: lanes)

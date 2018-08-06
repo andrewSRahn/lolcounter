@@ -146,8 +146,8 @@ public class Stepdefs {
 	
 	@Given("^/champions/name is scraped$")
 	public void champions_name_is_scraped() throws Exception {
-		for(String name: names) {
-			LaneRoleScrape scrape = new LaneRoleScrape(name);
+		for(Champion champion: champions) {
+			LaneRoleScrape scrape = new LaneRoleScrape(champion);
 			assertTrue(LaneService.create(scrape.getLanes()));
 			assertTrue(RoleService.create(scrape.getRoles()));
 		}

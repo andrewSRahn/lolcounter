@@ -11,7 +11,40 @@ import com.lolpick.lolcounter.entity.Role;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
 
 public class RoleDaoImpl implements RoleDao{
-
+	@Override
+	public boolean update(Set<Role> roles) {
+		for(Role role: roles) {
+			if(!update(role))
+				return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean update(Role role) {
+		Session session = null;
+		Transaction transaction = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			
+			Role current = session.get(Role.class, role.getId());
+			current.setChampions(role.getChampions());
+			
+			session.update(current);
+			transaction.commit();
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public boolean create(Set<Role> roles) {
 		for(Role role: roles)

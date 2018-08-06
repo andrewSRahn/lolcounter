@@ -1,51 +1,47 @@
 package com.lolpick.lolcounter.scrape;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.entity.Role;
 import com.lolpick.lolcounter.service.ChampionService;
 import com.lolpick.lolcounter.service.LaneService;
 import com.lolpick.lolcounter.service.RoleService;
 
-public class LaneRoleScrape {
-	private Set<Lane> lanes;
-	private Set<Role> roles;
-	private Integer championId;
-	private String name;
+public class LaneRoleScrape {	
+	private Champion champion;
 	
-	public LaneRoleScrape(String name) {
-		this.lanes = new HashSet<>();
-		this.roles = new HashSet<>();
-		this.championId = ChampionService.readChampion(name).getId();
-		this.name = name;
+	public LaneRoleScrape(Champion champion) {
+		this.champion = champion;
+		scrape();
+		insert();
 	}
 	
 	public String getName() {
-		return this.name;
+		return this.champion.getName();
 	}
 	
 	public Integer getChampionId() {
-		return this.championId;
+		return this.champion.getId();
 	}
 	
 	public Set<Lane> getLanes() {
-		return lanes;
+		return this.champion.getLanes();
 	}
 
 	public Set<Role> getRoles() {
-		return roles;
+		return this.champion.getRoles();
 	}
 
 	public boolean scrape() {
 		Document document = null;
 		
 		try {
-			String name = this.name.toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
+			String name = this.champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
 			String url = "https://lolcounter.com/champions/" + name;
 			document = Jsoup.connect(url).get();
 		} catch(Exception e) {
@@ -56,33 +52,32 @@ public class LaneRoleScrape {
 		for(int i = 1; i < countRoles(document); i++) {
 			String selector = "div.role:nth-child(" + i + ")";
 			String role = document.select(selector).text();
-			Integer id = roleSwitch(role);
-			this.roles.add(RoleService.read(role));
+			this.champion.getRoles().add(RoleService.read(role));
 		}
 
 		for(int i = 1; i < countLanes(document); i++) {
 			String selector = "div.lanes > div.lane:nth-child(" + i + ")";
 			String lane = document.select(selector).text();
-			Integer id = laneSwitch(lane);
-			this.lanes.add(LaneService.read(lane));
+			this.champion.getLanes().add(LaneService.read(lane));
 		}
 		
-		boolean bottom = lanes.contains(new Lane(0, "Bottom"));
-		boolean support = roles.contains(new Role(7, "Support"));
+		boolean bottom = this.champion.getLanes().contains(new Lane(0, "Bottom"));
+		boolean support = this.champion.getRoles().contains(new Role(7, "Support"));
 		
 		if(bottom && support) {
-			lanes.remove(new Lane(0, "Bottom"));
-			roles.remove(new Role(7, "Support"));
-			lanes.add(new Lane(1, "Support"));
+			this.champion.getLanes().remove(new Lane(0, "Bottom"));
+			this.champion.getRoles().remove(new Role(7, "Support"));
+			this.champion.getLanes().add(new Lane(1, "Support"));
 		}
 		
 		return true;
 	}
 	
 	public boolean insert() {
-		boolean lane = LaneService.create(this.lanes, this.name);
-		boolean role = RoleService.create(this.roles, this.name);
-		return lane && role;
+//		boolean lane = LaneService.update(this.champion.getLanes());
+//		boolean role = RoleService.update(this.champion.getRoles());
+		return ChampionService.updateChampion(this.champion);
+//		return lane && role && champion;
 	}
 	
 	private Integer laneSwitch(String lane) {

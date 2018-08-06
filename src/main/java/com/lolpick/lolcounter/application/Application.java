@@ -22,13 +22,8 @@ public class Application {
 		List<String> relations = Arrays.asList("Weak", "Strong", "Even", "Good");
 		
 		for(Champion champion: champions) {
-			LaneRoleScrape laneRoleScrape = new LaneRoleScrape(champion.getName());
-			
-			laneRoleScrape.scrape();
-			laneRoleScrape.insert();
+			LaneRoleScrape laneRoleScrape = new LaneRoleScrape(champion);
 				
-
-			
 			System.out.println(laneRoleScrape.getChampionId() + ":" + laneRoleScrape.getName());
 			System.out.println(laneRoleScrape.getLanes());
 			System.out.println(laneRoleScrape.getRoles());

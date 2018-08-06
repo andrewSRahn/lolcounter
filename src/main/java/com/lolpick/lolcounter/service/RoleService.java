@@ -34,4 +34,8 @@ public class RoleService {
 	public static Role read(String role) {
 		return dao.read(role);
 	}
+	
+	public static boolean update(Set<Role> roles) {
+		return dao.update(roles);
+	}
 }

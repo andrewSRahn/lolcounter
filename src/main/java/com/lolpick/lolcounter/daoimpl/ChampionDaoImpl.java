@@ -10,6 +10,32 @@ import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
 
 public class ChampionDaoImpl implements ChampionDao {
+	@Override
+	public boolean updateChampion(Champion champion) {
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			
+			Champion current = session.get(Champion.class, champion.getId());
+			current.setLanes(champion.getLanes());
+			current.setRoles(champion.getRoles());
+			
+			session.merge(current);
+			session.saveOrUpdate(current);
+			transaction.commit();
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+
+		return false;
+	}
+	
 	@Override 
 	public boolean createChampions(List<Champion> champions){
 		for(Champion champion: champions)
@@ -19,7 +45,8 @@ public class ChampionDaoImpl implements ChampionDao {
 		return true;
 	}
 	
-	private boolean createChampion(Champion champion) {
+	@Override
+	public boolean createChampion(Champion champion) {
 		Session session = null;
 		Transaction transaction = null;
 		

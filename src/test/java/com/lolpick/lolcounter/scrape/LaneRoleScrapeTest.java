@@ -15,11 +15,11 @@ import com.lolpick.lolcounter.service.ChampionService;
 public class LaneRoleScrapeTest {
 	@Test
 	public void testAmumu() {
-		LaneRoleScrape amumu = new LaneRoleScrape("Amumu");
+		Champion mu = ChampionService.readChampion("Amumu");
+		LaneRoleScrape amumu = new LaneRoleScrape(mu);
 		assertTrue(amumu.scrape());
 		assertTrue(amumu.insert());
 		
-		Champion mu = ChampionService.readChampion("Amumu");
 		Set<Lane> lanes = mu.getLanes();
 		Set<Role> roles = mu.getRoles();
 
@@ -28,23 +28,24 @@ public class LaneRoleScrapeTest {
 		assertTrue(roles.contains(new Role(6, "Tank")));
 	}
 	
-	@Test
-	public void testBlitz() {
-		LaneRoleScrape blitz = new LaneRoleScrape("Blitzcrank");
-		assertTrue(blitz.scrape());
-		assertTrue(blitz.insert());
-		
-		Champion blitzcrank = ChampionService.readChampion("Blitzcrank");
-		Set<Lane> lanes = blitzcrank.getLanes();
-		Set<Role> roles = blitzcrank.getRoles();
-		
-		assertTrue(lanes.contains(new Lane(2, "Jungler")));
-		assertTrue(lanes.contains(new Lane(1, "Support")));
-		assertTrue(roles.contains(new Role(3, "Mage")));
-		assertTrue(roles.contains(new Role(4, "Magical Damage")));
-		
-		assertFalse(lanes.contains(new Lane(0, "Bottom")));
-	}
+//	@Test
+//	public void testBlitz() {
+//		Champion blitzcrank = ChampionService.readChampion("Blitzcrank");
+//		LaneRoleScrape blitz = new LaneRoleScrape(blitzcrank);
+//		
+//		assertTrue(blitz.scrape());
+//		assertTrue(blitz.insert());
+//		
+//		Set<Lane> lanes = blitzcrank.getLanes();
+//		Set<Role> roles = blitzcrank.getRoles();
+//		
+//		assertTrue(lanes.contains(new Lane(2, "Jungler")));
+//		assertTrue(lanes.contains(new Lane(1, "Support")));
+//		assertTrue(roles.contains(new Role(3, "Mage")));
+//		assertTrue(roles.contains(new Role(4, "Magical Damage")));
+//		
+//		assertFalse(lanes.contains(new Lane(0, "Bottom")));
+//	}
 //	
 //	@Test
 //	public void testLeona() {
