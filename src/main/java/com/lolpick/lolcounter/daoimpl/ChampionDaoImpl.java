@@ -22,8 +22,7 @@ public class ChampionDaoImpl implements ChampionDao {
 			current.setLanes(champion.getLanes());
 			current.setRoles(champion.getRoles());
 			
-			session.merge(current);
-			session.saveOrUpdate(current);
+			session.refresh(current);
 			transaction.commit();
 			return true;
 		} catch(Exception e) {

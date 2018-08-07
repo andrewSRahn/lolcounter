@@ -114,8 +114,8 @@ public class RoleDaoImpl implements RoleDao{
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			return session.createQuery("from Role where champion_role=:r", Role.class)
-					.setParameter("r", role)
+			return session.createQuery("from Role where champion_role=:role", Role.class)
+					.setParameter("role", role)
 					.getSingleResult();
 		} catch(Exception e) {
 			e.printStackTrace();

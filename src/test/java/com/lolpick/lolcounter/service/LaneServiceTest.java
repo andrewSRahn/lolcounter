@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
+import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Lane;
 
 public class LaneServiceTest {
@@ -24,15 +25,13 @@ public class LaneServiceTest {
 				.collect(Collectors.toSet());
 		
 		assertTrue(LaneService.create(lanes, "Amumu"));
+		LaneService.create(lanes, "Blitzcrank");
 	}
 
 	@Test
 	public void testRead() {
-		assertTrue(ChampionService.readChampion("Amumu").getLanes().contains(new Lane(2, "Jungler")));
-//		assertTrue(ChampionService.readChampion("Blitzcrank").getLanes().contains(new Lane(0, "Bottom")));
-//		assertTrue(ChampionService.readChampion("Blitzcrank").getLanes().contains(new Lane(2, "Jungler")));
-//		assertTrue(ChampionService.readChampion("Leona").getLanes().contains(new Lane(1, "Support")));
-//		assertTrue(ChampionService.readChampion("Janna").getLanes().contains(new Lane(1, "Support")));
-//		assertTrue(ChampionService.readChampion("Janna").getLanes().contains(new Lane(3, "Mid")));
+		for(Champion champion: LaneService.read("Jungler").getChampions()) {
+			System.out.println(champion);
+		}
 	}
 }

@@ -21,7 +21,8 @@ public class RoleService {
 				new Role(3, "Mage"),
 				new Role(4, "Magical Damage"),
 				new Role(5, "Physical Damage"),
-				new Role(6, "Tank"))
+				new Role(6, "Tank"),
+				new Role(7, "Support"))
 				.collect(Collectors.toSet());
 		
 		return create(roles);		

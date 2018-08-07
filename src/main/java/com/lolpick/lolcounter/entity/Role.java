@@ -29,14 +29,14 @@ public class Role {
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="champion_role", 
-			joinColumns= {@JoinColumn(name="name")},
+			joinColumns= {@JoinColumn(name="champion_name")},
 			inverseJoinColumns= {@JoinColumn(name="champion_role")})
 	@SequenceGenerator(
 			name="champion_role_sequence",
 			initialValue=1,
 			allocationSize=500)
 	@CollectionId(
-			columns = @Column(name="id"),
+			columns = @Column(name="champion_role_id"),
 			type = @Type(type="long"),
 			generator = "champion_role_sequence")
 	List<Champion> champions;

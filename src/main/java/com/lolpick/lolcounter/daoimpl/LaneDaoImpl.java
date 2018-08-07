@@ -31,7 +31,7 @@ public class LaneDaoImpl implements LaneDao{
 			
 			Lane current = session.get(Lane.class, lane.getId());
 			current.setChampions(lane.getChampions());
-			session.update(current);
+			session.saveOrUpdate(current);
 			transaction.commit();
 			
 			return true;
