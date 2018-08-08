@@ -9,9 +9,6 @@ import com.lolpick.lolcounter.entity.Role;
 
 public class RoleService {
 	private static RoleDaoImpl dao = new RoleDaoImpl();
-	public static boolean create(Set<Role> roles) {
-		return dao.create(roles);
-	}
 	
 	public static boolean initialize() {
 		Set<Role> roles = Stream.of(
@@ -26,6 +23,10 @@ public class RoleService {
 				.collect(Collectors.toSet());
 		
 		return create(roles);		
+	}
+	
+	public static boolean create(Set<Role> roles) {
+		return dao.create(roles);
 	}
 	
 	public static boolean create(Set<Role> roles, String champion) {

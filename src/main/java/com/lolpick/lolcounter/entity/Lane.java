@@ -29,8 +29,8 @@ public class Lane {
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="champion_lane", 
-			joinColumns= {@JoinColumn(name="champion_lane")},
-			inverseJoinColumns= {@JoinColumn(name="champion_name")})
+			joinColumns= {@JoinColumn(name="lane_id")},
+			inverseJoinColumns= {@JoinColumn(name="champion_id")})
 	@SequenceGenerator(
 			name="champion_lane_sequence", 
 			initialValue=1, 

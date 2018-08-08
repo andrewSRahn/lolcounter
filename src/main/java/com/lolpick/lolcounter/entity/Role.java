@@ -29,8 +29,8 @@ public class Role {
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="champion_role", 
-			joinColumns= {@JoinColumn(name="champion_name")},
-			inverseJoinColumns= {@JoinColumn(name="champion_role")})
+			joinColumns= {@JoinColumn(name="role_id")},
+			inverseJoinColumns= {@JoinColumn(name="champion_id")})
 	@SequenceGenerator(
 			name="champion_role_sequence",
 			initialValue=1,
