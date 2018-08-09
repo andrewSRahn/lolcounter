@@ -51,10 +51,38 @@ public class RoleServiceTest {
 		Role physical = RoleService.read("Physical Damage");
 		Role tank = RoleService.read("Tank");
 		
-		System.out.println("physical damage" + physical.getChampions());
-		System.out.println("tank" + tank.getChampions());
+		for(Champion champion: physical.getChampions()) 
+			System.out.println(champion);
+		for(Champion champion: tank.getChampions())
+			System.out.println(champion);
 		
 		
 		
+	}
+	
+	@Test
+	public void testAlistar() {
+		RoleService.initialize();
+		LaneService.initialize();
+		ChampionScrape.insert();
+		
+		Champion alistar = ChampionService.readChampion("Alistar");
+		System.out.println(alistar);
+		
+		assertTrue(alistar.getRoles().isEmpty());
+		assertTrue(alistar.getLanes().isEmpty());
+		
+		LaneRoleScrape alistarScrape = new LaneRoleScrape(alistar);
+		
+		alistar = ChampionService.readChampion("Alistar");
+		System.out.println(alistar);
+		
+		Role tank = RoleService.read("Tank");
+		Role magical = RoleService.read("Magical Damage");
+		
+		for(Champion champion: tank.getChampions())
+			System.out.println(champion);
+		for(Champion champion: magical.getChampions())
+			System.out.println(champion);
 	}
 }
