@@ -3,7 +3,6 @@ package com.lolpick.lolcounter.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.Type;
 
@@ -27,7 +28,8 @@ public class Role {
 	@Column(name="champion_role")
 	private String role;
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@JoinTable(name="champion_role", 
 			joinColumns= {@JoinColumn(name="role_id")},
 			inverseJoinColumns= {@JoinColumn(name="champion_id")})

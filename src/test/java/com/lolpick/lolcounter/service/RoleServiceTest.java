@@ -28,7 +28,7 @@ public class RoleServiceTest {
 	 * Leona has lanes: support
 	 */
 	@Test
-	public void testUpdate() {
+	public void testLeona() {
 		RoleService.initialize();
 		LaneService.initialize();
 		ChampionScrape.insert();
@@ -55,8 +55,6 @@ public class RoleServiceTest {
 			System.out.println(champion);
 		for(Champion champion: tank.getChampions())
 			System.out.println(champion);
-		
-		
 		
 	}
 	

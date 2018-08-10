@@ -1,5 +1,6 @@
 package com.lolpick.lolcounter.daoimpl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -40,40 +41,6 @@ public class RoleDaoImpl implements RoleDao{
 		
 		return false;
 	}
-
-	@Override
-	public boolean create(Set<Role> roles, String champion) {
-		Session session = null;
-		Transaction transaction = null;
-		
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
-			
-			Champion champ = session.createQuery("from Champion where name like :name", Champion.class)
-					.setParameter("name", champion)
-					.getSingleResult();
-
-			for (Role role: roles) {
-				role.getChampions().add(champ);
-				session.saveOrUpdate(role);
-			}
-			
-			champ.setRoles(roles);
-			
-			session.saveOrUpdate(champ);
-			transaction.commit();
-			
-			return true;
-		} catch(Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		
-		return false;
-	}
 	
 	@Override
 	public Role read(String role) {
@@ -94,16 +61,16 @@ public class RoleDaoImpl implements RoleDao{
 	}
 	
 	@Override
-	public boolean update(Set<Role> roles) {
+	public boolean update(Set<Role> roles, Champion champion) {
 		for(Role role: roles) {
-			if(!update(role))
+			if(!update(role, champion))
 				return false;
 		}
 		
 		return true;
 	}
 	
-	private boolean update(Role role) {
+	private boolean update(Role role, Champion champion) {
 		Session session = null;
 		Transaction transaction = null;
 		
@@ -112,9 +79,14 @@ public class RoleDaoImpl implements RoleDao{
 			transaction = session.beginTransaction();
 			
 			Role current = session.get(Role.class, role.getId());
-			current.setChampions(role.getChampions());
+			session.delete(current);
 			
-			session.update(current);
+			List<Champion> champions = role.getChampions();
+			champions.add(champion);
+			current.setChampions(champions);
+			
+			
+			session.save(current);
 			transaction.commit();
 			return true;
 		} catch(Exception e) {

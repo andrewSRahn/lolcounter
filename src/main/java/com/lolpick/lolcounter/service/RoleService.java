@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.lolpick.lolcounter.daoimpl.RoleDaoImpl;
+import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Role;
 
 public class RoleService {
@@ -29,15 +30,11 @@ public class RoleService {
 		return dao.create(roles);
 	}
 	
-	public static boolean create(Set<Role> roles, String champion) {
-		return dao.create(roles, champion);
-	}
-	
 	public static Role read(String role) {
 		return dao.read(role);
 	}
 	
-	public static boolean update(Set<Role> roles) {
-		return dao.update(roles);
+	public static boolean update(Set<Role> roles, Champion champion) {
+		return dao.update(roles, champion);
 	}
 }

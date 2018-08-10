@@ -74,10 +74,10 @@ public class LaneRoleScrape {
 	}
 	
 	public boolean insert() {
-		boolean lane = LaneService.create(this.champion.getLanes(), this.champion.getName());
-		boolean role = RoleService.create(this.champion.getRoles(), this.champion.getName());
+//		boolean lane = LaneService.update(this.champion.getLanes(), this.champion);
+		boolean role = RoleService.update(this.champion.getRoles(), this.champion);
 		boolean champion = ChampionService.updateChampion(this.champion);
-		return lane && role && champion;
+		return role && champion;
 	}
 	
 	private Integer laneSwitch(String lane) {
