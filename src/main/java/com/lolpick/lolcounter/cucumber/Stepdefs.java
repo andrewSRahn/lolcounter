@@ -1,25 +1,20 @@
 package com.lolpick.lolcounter.cucumber;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import com.lolpick.lolcounter.entity.Block;
 import com.lolpick.lolcounter.entity.Champion;
-import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.entity.Page;
-import com.lolpick.lolcounter.entity.Role;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
 import com.lolpick.lolcounter.scrape.LaneRoleScrape;
 import com.lolpick.lolcounter.scrape.PageScrape;
 import com.lolpick.lolcounter.service.ChampionService;
 import com.lolpick.lolcounter.service.LaneService;
 import com.lolpick.lolcounter.service.PageService;
-import com.lolpick.lolcounter.service.RoleService;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -31,7 +26,8 @@ public class Stepdefs {
     
     @Given("^Champions page is scraped$")
     public void champions_page_is_scraped() throws Exception {
-    	ChampionService.createChampions(ChampionScrape.scrape());
+    	@SuppressWarnings("unused")
+    	ChampionScrape scrape = new ChampionScrape();
     }
 
     @When("^Champion service reads champions$")
@@ -134,99 +130,25 @@ public class Stepdefs {
 		assertTrue(leonaPage.getBlocks().contains(leonaValidate));
 	}
 	
-	Set<Lane> amumuLanes = null;
-	Set<Lane> blitzLanes = null;
-	Set<Lane> jannaLanes = null;
-	Set<Lane> leonaLanes = null;
-	
-	Set<Role> amumuRoles = null;
-	Set<Role> blitzRoles = null;
-	Set<Role> jannaRoles = null;
-	Set<Role> leonaRoles = null;
-	
-	@Given("^/champions/name is scraped$")
-	public void champions_name_is_scraped() throws Exception {
-		for(Champion champion: champions) {
-			LaneRoleScrape scrape = new LaneRoleScrape(champion);
-			assertTrue(LaneService.create(scrape.getLanes()));
-			assertTrue(RoleService.create(scrape.getRoles()));
-		}
-	}  
-
-	@When("^Lane service reads lanes$")
-	public void lane_service_reads_lanes() throws Exception {
-		amumuLanes = ChampionService.readChampion("Amumu").getLanes();
-		blitzLanes = ChampionService.readChampion("Blitzcrank").getLanes();
-		jannaLanes = ChampionService.readChampion("Janna").getLanes();
-		leonaLanes = ChampionService.readChampion("Leona").getLanes();
+	@Given("^Champion and Lane tables are initialized$")
+	public void champion_and_Lane_tables_are_initialized() throws Exception {
+	    LaneService.initialize();
+	    @SuppressWarnings("unused")
+	    ChampionScrape championScrape = new ChampionScrape();
+	    Champion blitzcrank = ChampionService.readChampion("Blitzcrank");
+	    @SuppressWarnings("unused")
+	    LaneRoleScrape blitzcrankScrape = new LaneRoleScrape(blitzcrank);
 	}
 
-	@When("^Role service reads$")
-	public void role_service_reads() throws Exception {
-		amumuRoles = ChampionService.readChampion("Amumu").getRoles();
-		blitzRoles = ChampionService.readChampion("Blitzcrank").getRoles();
-		jannaRoles = ChampionService.readChampion("Janna").getRoles();
-		leonaRoles = ChampionService.readChampion("Leona").getRoles();
+	@Then("^Blitzcrank will be a support and jungler$")
+	public void blitzcrank_will_be_a_support_and_jungler() throws Exception {
+		
 	}
 
-	@Then("^lanes will contain Top, Mid, Jungler, Support, or Bottom$")
-	public void lanes_will_contain_Top_Mid_Jungler_Support_or_Bottom() throws Exception {
-		Lane amumuLane = amumuLanes.stream()
-				.filter(l -> !l.getLane().equals("Jungler"))
-				.findFirst()
-				.orElse(null);
-		
-		Lane blitzLane = blitzLanes.stream()
-		.filter(l -> !l.getLane().equals("Support")
-				|| !l.getLane().equals("Bottom")
-				|| !l.getLane().equals("Jungler"))
-		.findFirst()
-		.orElse(null);
-		
-		Lane jannaLane = jannaLanes.stream()
-				.filter(l -> !l.getLane().equals("Mid")
-						|| !l.getLane().equals("Bottom")
-						|| !l.getLane().equals("Support"))
-				.findFirst()
-				.orElse(null);
-		
-		Lane leonaLane = leonaLanes.stream()
-				.filter(l -> !l.getLane().equals("Support")
-						|| !l.getLane().equals("Bottom"))
-				.findFirst()
-				.orElse(null);
-		
-		assertNotNull(amumuLane);
-		assertNotNull(blitzLane);
-		assertNotNull(jannaLane);
-		assertNotNull(leonaLane);
+	@Then("^Leona will be a support$")
+	public void leona_will_be_a_support() throws Exception {
+	    // Write code here that turns the phrase above into concrete actions
 	}
 
-	@Then("^roles will contain Fighter, Mage, Assassin, or Tank$")
-	public void roles_will_contain_Fighter_Mage_Assassin_or_Tank() throws Exception {
-		Role amumu = amumuRoles.stream()
-				.filter( r -> !r.getRole().equals("Tank"))
-				.findFirst()
-				.orElse(null);
-		
-		Role blitz = blitzRoles.stream()
-				.filter( r -> !r.getRole().equals("Mage"))
-				.findFirst()
-				.orElse(null);
-		
-		Role janna = jannaRoles.stream()
-				.findFirst()
-				.orElse(null);
-		
-		Role leona = leonaRoles.stream()
-				.filter( r -> !r.getRole().equals("Tank"))
-				.findFirst()
-				.orElse(null);
-		
-		assertNotNull(amumu);
-		assertNotNull(blitz);
-		assertNull(janna);
-		assertNotNull(leona);
-	}
 	
 }

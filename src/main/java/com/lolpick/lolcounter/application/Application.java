@@ -13,7 +13,8 @@ import com.lolpick.lolcounter.service.RoleService;
 
 public class Application {
 	public static void main(String[] args) {
-		ChampionScrape.insert();
+		@SuppressWarnings("unused")
+		ChampionScrape championScrape = new ChampionScrape();
 		
 		LaneService.initialize();
 		RoleService.initialize();
@@ -29,23 +30,11 @@ public class Application {
 			System.out.println(laneRoleScrape.getRoles());
 
 			for(String relation: relations) {
-				
-				String name = champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
-				String url = "https://lolcounter.com/champions/" + name + "/" + relation.toLowerCase();
-				
-				try {
-					if(PageScrape.insert(url, champion.getName(), relation, champion.getId()))
-						System.out.println(url);
-					else
-						throw new Exception(url + " failed");
-
-				} catch(Exception e) {
-					Fail.appendToFile("src/main/resources/fails.txt", url, name, relation, champion.getId());
-					System.out.println(url + " failed");
-				}
+				@SuppressWarnings("unused")
+				PageScrape pageScrape = new PageScrape(champion, relation);
+		
 			}
 		}
-		
 		System.out.println("Done!");
 	}
 }

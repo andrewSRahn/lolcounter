@@ -15,7 +15,11 @@ import com.lolpick.lolcounter.service.ChampionService;
 public class ChampionScrape {	
 	private final static int CHAMPION_COUNT = 141;
 	
-	public static List<Champion> scrape() {
+	public ChampionScrape() {
+		insert();
+	}
+	
+	private static List<Champion> scrape() {
 		List<Champion> championList = new ArrayList<>();
 		Document doc = null;
 		try {
@@ -35,7 +39,7 @@ public class ChampionScrape {
 		return championList;
 	}
 	
-	public static void insert() {
+	private static void insert() {
 		ChampionService.createChampions(scrape());
 	}
 }
