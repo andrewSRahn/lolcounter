@@ -70,7 +70,7 @@ public class RoleDaoImpl implements RoleDao{
 		return true;
 	}
 	
-	private boolean update(Role role, Champion champion) {
+	private boolean update(Role current, Champion champion) {
 		Session session = null;
 		Transaction transaction = null;
 		
@@ -78,19 +78,18 @@ public class RoleDaoImpl implements RoleDao{
 			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			
-			Role current = session.get(Role.class, role.getId());
-			session.delete(current);
+			Role stale = session.get(Role.class, current.getId());
 			
-			List<Champion> champions = role.getChampions();
+			List<Champion> champions = current.getChampions();
 			champions.add(champion);
-			current.setChampions(champions);
+			stale.setChampions(champions);
 			
-			
-			session.save(current);
+			session.merge(current);
+			session.saveOrUpdate(current);
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			transaction.rollback();
 		} finally {
 			session.close();
@@ -98,4 +97,5 @@ public class RoleDaoImpl implements RoleDao{
 		
 		return false;
 	}
+	
 }

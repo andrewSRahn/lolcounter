@@ -2,12 +2,14 @@ package com.lolpick.lolcounter.entity;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="champion")
@@ -19,10 +21,12 @@ public class Champion {
 	@Column
 	private String name;
 	
-	@ManyToMany(mappedBy="champions", cascade=CascadeType.ALL)
+	@ManyToMany(mappedBy="champions")
+	@Cascade({CascadeType.SAVE_UPDATE})
 	private Set<Lane> lanes;
 	
-	@ManyToMany(mappedBy="champions", cascade=CascadeType.ALL)
+	@ManyToMany(mappedBy="champions")
+	@Cascade({CascadeType.SAVE_UPDATE})
 	private Set<Role> roles;
 
 	public Champion(Integer id, String name) {

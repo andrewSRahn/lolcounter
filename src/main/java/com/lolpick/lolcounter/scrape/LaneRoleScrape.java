@@ -61,13 +61,13 @@ public class LaneRoleScrape {
 			this.champion.getLanes().add(LaneService.read(lane));
 		}
 		
-		boolean bottom = this.champion.getLanes().contains(new Lane(0, "Bottom"));
-		boolean support = this.champion.getRoles().contains(new Role(7, "Support"));
+		boolean bottom = this.champion.getLanes().contains(LaneService.read("Bottom"));
+		boolean support = this.champion.getRoles().contains(RoleService.read("Support"));
 		
 		if(bottom && support) {
-			this.champion.getLanes().remove(new Lane(0, "Bottom"));
-			this.champion.getRoles().remove(new Role(7, "Support"));
-			this.champion.getLanes().add(new Lane(1, "Support"));
+			this.champion.getLanes().remove(LaneService.read("Bottom"));
+			this.champion.getRoles().remove(RoleService.read("Support"));
+			this.champion.getLanes().add(LaneService.read("Support"));
 		}
 		
 		return true;
@@ -77,7 +77,7 @@ public class LaneRoleScrape {
 //		boolean lane = LaneService.update(this.champion.getLanes(), this.champion);
 		boolean role = RoleService.update(this.champion.getRoles(), this.champion);
 		boolean champion = ChampionService.updateChampion(this.champion);
-		return role && champion;
+		return role;
 	}
 	
 	@SuppressWarnings("unused")

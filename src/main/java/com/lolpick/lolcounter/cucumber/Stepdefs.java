@@ -8,13 +8,13 @@ import java.util.List;
 
 import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.entity.Champion;
-import com.lolpick.lolcounter.entity.Relation;
+import com.lolpick.lolcounter.entity.Power;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
 import com.lolpick.lolcounter.scrape.LaneRoleScrape;
-import com.lolpick.lolcounter.scrape.PageScrape;
+import com.lolpick.lolcounter.scrape.VoteScrape;
 import com.lolpick.lolcounter.service.ChampionService;
 import com.lolpick.lolcounter.service.LaneService;
-import com.lolpick.lolcounter.service.PageService;
+import com.lolpick.lolcounter.service.PowerService;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -50,10 +50,10 @@ public class Stepdefs {
 		assertNotNull(champion);
 	}
 	
-	Relation amumuPage = null;
-	Relation blitzPage = null;
-	Relation jannaPage = null;
-	Relation leonaPage = null;
+	Power amumuPage = null;
+	Power blitzPage = null;
+	Power jannaPage = null;
+	Power leonaPage = null;
 	
 	Vote amumuBlock = null;
 	Vote blitzValidate = null;
@@ -63,29 +63,29 @@ public class Stepdefs {
 	@Given("^/champions/name/relation is scraped$")
 	@SuppressWarnings("unused")
 	public void champions_name_relation_is_scraped() throws Exception {
-	    PageScrape amumu = new PageScrape(
+	    VoteScrape amumu = new VoteScrape(
 	    		ChampionService.readChampion("Amumu"),
 	    		"Weak");
 	    
-	    PageScrape blitz = new PageScrape(
+	    VoteScrape blitz = new VoteScrape(
 	    		ChampionService.readChampion("Blitzcrank"),
 	    		"Strong");
 	    
-	    PageScrape janna = new PageScrape(
+	    VoteScrape janna = new VoteScrape(
 	    		ChampionService.readChampion("Janna"),
 	    		"Even");
 	    
-	    PageScrape leona = new PageScrape(
+	    VoteScrape leona = new VoteScrape(
 	    		ChampionService.readChampion("Leona"),
 	    		"Good");
 	}
 
 	@When("^Page service reads pages$")
 	public void page_service_reads_pages() throws Exception {
-		amumuPage = PageService.read("Amumu", "Weak");
-		blitzPage = PageService.read("Blitzcrank", "Strong");
-		jannaPage = PageService.read("Janna", "Even");
-		leonaPage = PageService.read("Leona", "Good");
+		amumuPage = PowerService.read("Amumu", "Weak");
+		blitzPage = PowerService.read("Blitzcrank", "Strong");
+		jannaPage = PowerService.read("Janna", "Even");
+		leonaPage = PowerService.read("Leona", "Good");
 	}
 
 	@Then("^Page block will contain image, foe, lane, up, and down$")

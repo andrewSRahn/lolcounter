@@ -8,19 +8,19 @@ import org.jsoup.nodes.Document;
 import org.junit.Test;
 
 import com.lolpick.lolcounter.entity.Vote;
-import com.lolpick.lolcounter.entity.Relation;
-import com.lolpick.lolcounter.service.BlockService;
+import com.lolpick.lolcounter.entity.Power;
+import com.lolpick.lolcounter.service.VoteService;
 import com.lolpick.lolcounter.service.ChampionService;
-import com.lolpick.lolcounter.service.PageService;
+import com.lolpick.lolcounter.service.PowerService;
 
-public class PageScrapeTest {
+public class VoteScrapeTest {
 	@Test
 	public void testScrapeAmumu() throws Exception {
-		PageScrape pageScrape = new PageScrape(
+		VoteScrape pageScrape = new VoteScrape(
 				ChampionService.readChampion("Amumu"),
 				"Weak");
 		
-		Relation scrape = pageScrape.getPage();
+		Power scrape = pageScrape.getPage();
 		Vote block = new Vote(
 				100,
 				scrape,
@@ -30,16 +30,16 @@ public class PageScrapeTest {
 				1654);
 		
 		assertTrue(scrape.getBlocks().contains(block));
-		assertTrue(PageService.create(scrape));	
-		assertTrue(BlockService.createBlocks(scrape.getBlocks()));
+		assertTrue(PowerService.create(scrape));	
+		assertTrue(VoteService.createBlocks(scrape.getBlocks()));
 	}
 
 	@Test
 	public void testScrapeBlitz() throws Exception{
-		PageScrape pageScrape = new PageScrape(
+		VoteScrape pageScrape = new VoteScrape(
 				ChampionService.readChampion("Blitzcrank"),
 				"Strong");
-		Relation scrape = pageScrape.getPage();
+		Power scrape = pageScrape.getPage();
 	    Vote block = new Vote(
 	    		480,
 				scrape,
@@ -49,16 +49,16 @@ public class PageScrapeTest {
 				1857);
 	    
 	    assertTrue(scrape.getBlocks().contains(block));
-		assertTrue(PageService.create(scrape));	
-		assertTrue(BlockService.createBlocks(scrape.getBlocks()));
+		assertTrue(PowerService.create(scrape));	
+		assertTrue(VoteService.createBlocks(scrape.getBlocks()));
 	}
 	
 	@Test
 	public void testScrapeJanna() throws Exception{
-		PageScrape pageScrape = new PageScrape(
+		VoteScrape pageScrape = new VoteScrape(
 				ChampionService.readChampion("Janna"),
 				"Even");
-		Relation scrape = pageScrape.getPage();
+		Power scrape = pageScrape.getPage();
 	    Vote block = new Vote(
 	    		2520,
 				scrape,
@@ -67,17 +67,17 @@ public class PageScrapeTest {
 				1335, 
 				1007);
 	    assertTrue(scrape.getBlocks().contains(block));
-		assertTrue(PageService.create(scrape));	
-		assertTrue(BlockService.createBlocks(scrape.getBlocks()));
+		assertTrue(PowerService.create(scrape));	
+		assertTrue(VoteService.createBlocks(scrape.getBlocks()));
 	}
 	
 	@Test
 	public void testScrapeLeona() throws Exception{
-		PageScrape pageScrape = new PageScrape(
+		VoteScrape pageScrape = new VoteScrape(
 				ChampionService.readChampion("Leona"),
 				"Good");
 
-		Relation scrape = pageScrape.getPage();
+		Power scrape = pageScrape.getPage();
 		Vote block = new Vote(
 				5040,
 				scrape,
@@ -87,19 +87,19 @@ public class PageScrapeTest {
 				1430);
 		
 		assertTrue(scrape.getBlocks().contains(block));
-		assertTrue(PageService.create(scrape));
-		assertTrue(BlockService.createBlocks(scrape.getBlocks()));
+		assertTrue(PowerService.create(scrape));
+		assertTrue(VoteService.createBlocks(scrape.getBlocks()));
 	}
 	
 	@Test
 	public void testCount() throws Exception{
 		Document camilleGood = Jsoup.connect("https://lolcounter.com/champions/camille/good").get();
-		assertEquals(PageScrape.count(camilleGood), 0);
+		assertEquals(VoteScrape.count(camilleGood), 0);
 		
 		Document braumEven = Jsoup.connect("https://lolcounter.com/champions/braum/even").get();
-		assertEquals(PageScrape.count(braumEven), 20);
+		assertEquals(VoteScrape.count(braumEven), 20);
 		
 		Document braumGood = Jsoup.connect("https://lolcounter.com/champions/braum/good").get();
-		assertEquals(PageScrape.count(braumGood), 9);
+		assertEquals(VoteScrape.count(braumGood), 9);
 	}
 }

@@ -2,11 +2,11 @@ package com.lolpick.lolcounter.service;
 
 import java.util.List;
 
-import com.lolpick.lolcounter.daoimpl.BlockDaoImpl;
+import com.lolpick.lolcounter.daoimpl.VoteDaoImpl;
 import com.lolpick.lolcounter.entity.Vote;
 
-public class BlockService {
-	private static BlockDaoImpl daoimpl = new BlockDaoImpl();
+public class VoteService {
+	private static VoteDaoImpl daoimpl = new VoteDaoImpl();
 	
 	public static boolean createBlocks(List<Vote> blocks) {
 		for (Vote block: blocks)

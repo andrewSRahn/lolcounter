@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lolpick.lolcounter.scrape.PageScrape;
+import com.lolpick.lolcounter.scrape.VoteScrape;
 import com.lolpick.lolcounter.service.ChampionService;
 
 public class Fail {
@@ -41,7 +41,7 @@ public class Fail {
 				remove(file, i+1);
 				
 				@SuppressWarnings("unused")
-				PageScrape scrape = new PageScrape(
+				VoteScrape scrape = new VoteScrape(
 						ChampionService.readChampion(name),
 						relation);
 			}

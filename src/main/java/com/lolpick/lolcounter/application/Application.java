@@ -6,7 +6,7 @@ import java.util.List;
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
 import com.lolpick.lolcounter.scrape.LaneRoleScrape;
-import com.lolpick.lolcounter.scrape.PageScrape;
+import com.lolpick.lolcounter.scrape.VoteScrape;
 import com.lolpick.lolcounter.service.ChampionService;
 import com.lolpick.lolcounter.service.LaneService;
 import com.lolpick.lolcounter.service.RoleService;
@@ -20,7 +20,7 @@ public class Application {
 		RoleService.initialize();
 		
 		List<Champion> champions = ChampionService.readChampions();
-		List<String> relations = Arrays.asList("Weak", "Strong", "Even", "Good");
+		List<String> power = Arrays.asList("Weak", "Strong", "Even", "Good");
 		
 		for(Champion champion: champions) {
 			LaneRoleScrape laneRoleScrape = new LaneRoleScrape(champion);
@@ -29,9 +29,9 @@ public class Application {
 			System.out.println(laneRoleScrape.getLanes());
 			System.out.println(laneRoleScrape.getRoles());
 
-			for(String relation: relations) {
+			for(String relation: power) {
 				@SuppressWarnings("unused")
-				PageScrape pageScrape = new PageScrape(champion, relation);
+				VoteScrape pageScrape = new VoteScrape(champion, relation);
 		
 			}
 		}

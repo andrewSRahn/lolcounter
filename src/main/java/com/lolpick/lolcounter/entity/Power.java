@@ -27,8 +27,8 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name="relation")
-public class Relation {
+@Table(name="power")
+public class Power {
 	@Id
 	Integer id;
 	
@@ -36,18 +36,18 @@ public class Relation {
 	String name;
 	
 	@Column
-	String relation;
+	String power;
 	
 	@OneToMany(mappedBy="page", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	List<Vote> blocks;
 	
-	public Relation() {}
+	public Power() {}
 
-	public Relation(Integer id, String name, String relation, List<Vote> blocks) {
+	public Power(Integer id, String name, String power, List<Vote> blocks) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.relation = relation;
+		this.power = power;
 		this.blocks = blocks;
 	}
 
@@ -68,11 +68,11 @@ public class Relation {
 	}
 
 	public String getRelation() {
-		return relation;
+		return power;
 	}
 
 	public void setRelation(String relation) {
-		this.relation = relation;
+		this.power = relation;
 	}
 
 	public List<Vote> getBlocks() {
@@ -88,7 +88,7 @@ public class Relation {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((relation == null) ? 0 : relation.hashCode());
+		result = prime * result + ((power == null) ? 0 : power.hashCode());
 		return result;
 	}
 
@@ -100,22 +100,22 @@ public class Relation {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Relation other = (Relation) obj;
+		Power other = (Power) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (relation == null) {
-			if (other.relation != null)
+		if (power == null) {
+			if (other.power != null)
 				return false;
-		} else if (!relation.equals(other.relation))
+		} else if (!power.equals(other.power))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Page [id=" + id + ", name=" + name + ", relation=" + relation + ", blocks=" + blocks + "]";
+		return "Page [id=" + id + ", name=" + name + ", relation=" + power + ", blocks=" + blocks + "]";
 	}
 }

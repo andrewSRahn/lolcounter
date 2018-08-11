@@ -15,7 +15,7 @@ public class Vote {
 	
 	@ManyToOne
 	@JoinColumn(name="page_id", nullable=false)
-	private Relation page;
+	private Power page;
 	
 	@Column
 	private String name;
@@ -33,7 +33,7 @@ public class Vote {
 		super();
 	}
 
-	public Vote(Integer id, Relation page, String name, String lane, Integer up, Integer down) {
+	public Vote(Integer id, Power page, String name, String lane, Integer up, Integer down) {
 		super();
 		this.id = id;
 		this.page = page;
@@ -83,11 +83,11 @@ public class Vote {
 		this.down = down;
 	}
 
-	public Relation getPage() {
+	public Power getPage() {
 		return page;
 	}
 
-	public void setPage(Relation page) {
+	public void setPage(Power page) {
 		this.page = page;
 	}
 

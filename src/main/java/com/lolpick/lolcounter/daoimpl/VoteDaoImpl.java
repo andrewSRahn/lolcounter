@@ -3,11 +3,11 @@ package com.lolpick.lolcounter.daoimpl;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.lolpick.lolcounter.dao.BlockDao;
+import com.lolpick.lolcounter.dao.VoteDao;
 import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
 
-public class BlockDaoImpl implements BlockDao{
+public class VoteDaoImpl implements VoteDao{
 
 	@Override
 	public boolean create(Vote block) {

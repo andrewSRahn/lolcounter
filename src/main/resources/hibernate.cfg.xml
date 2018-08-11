@@ -8,7 +8,7 @@
 		
 		<mapping class="com.lolpick.lolcounter.entity.Champion"></mapping>
 		<mapping class="com.lolpick.lolcounter.entity.Vote"></mapping>
-		<mapping class="com.lolpick.lolcounter.entity.Relation"></mapping>
+		<mapping class="com.lolpick.lolcounter.entity.Power"></mapping>
  		<mapping class="com.lolpick.lolcounter.entity.Lane"></mapping>
 		<mapping class="com.lolpick.lolcounter.entity.Role"></mapping>
 	</session-factory>

@@ -11,15 +11,15 @@ import org.jsoup.nodes.Element;
 import com.lolpick.lolcounter.application.Fail;
 import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.entity.Champion;
-import com.lolpick.lolcounter.entity.Relation;
-import com.lolpick.lolcounter.service.BlockService;
-import com.lolpick.lolcounter.service.PageService;
+import com.lolpick.lolcounter.entity.Power;
+import com.lolpick.lolcounter.service.VoteService;
+import com.lolpick.lolcounter.service.PowerService;
 
-public class PageScrape {
+public class VoteScrape {
 	private String url;
-	private Relation page;
+	private Power page;
 
-	public PageScrape(Champion champion, String relation) {
+	public VoteScrape(Champion champion, String relation) {
 		String name = champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
 		this.url = "https://lolcounter.com/champions/" + name + "/" + relation.toLowerCase();
 		
@@ -35,10 +35,10 @@ public class PageScrape {
 		}
 	}
 	
-	private Relation scrape(String champion, String relation, Integer championId) {
+	private Power scrape(String champion, String relation, Integer championId) {
 		Integer pageId = pageId(championId, relation);
 		List<Vote> blocks = new ArrayList<>();
-		Relation page = new Relation(pageId, champion, relation, blocks);
+		Power page = new Power(pageId, champion, relation, blocks);
 		Document document = null;
 		try {
 			document = Jsoup.connect(this.url).get();
@@ -81,9 +81,9 @@ public class PageScrape {
 	}
 
 	private boolean insert(String url, String champion, String relation, Integer championId) {
-		Relation page = scrape(champion, relation, championId);
-		boolean result = PageService.create(page);
-		return result & BlockService.createBlocks(page.getBlocks());
+		Power page = scrape(champion, relation, championId);
+		boolean result = PowerService.create(page);
+		return result & VoteService.createBlocks(page.getBlocks());
 	}
 	
 	private static int relationSwitch(String relation) {
@@ -128,11 +128,11 @@ public class PageScrape {
 		this.url = url;
 	}
 	
-	public Relation getPage() {
+	public Power getPage() {
 		return page;
 	}
 
-	public void setPage(Relation page) {
+	public void setPage(Power page) {
 		this.page = page;
 	}
 }
