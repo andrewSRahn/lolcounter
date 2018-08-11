@@ -4,13 +4,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.lolpick.lolcounter.dao.BlockDao;
-import com.lolpick.lolcounter.entity.Block;
+import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
 
 public class BlockDaoImpl implements BlockDao{
 
 	@Override
-	public boolean create(Block block) {
+	public boolean create(Vote block) {
 		Session session = null;
 		Transaction transaction = null;
 		try {

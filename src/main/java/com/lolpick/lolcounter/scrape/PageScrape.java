@@ -9,15 +9,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.lolpick.lolcounter.application.Fail;
-import com.lolpick.lolcounter.entity.Block;
+import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.entity.Champion;
-import com.lolpick.lolcounter.entity.Page;
+import com.lolpick.lolcounter.entity.Relation;
 import com.lolpick.lolcounter.service.BlockService;
 import com.lolpick.lolcounter.service.PageService;
 
 public class PageScrape {
 	private String url;
-	private Page page;
+	private Relation page;
 
 	public PageScrape(Champion champion, String relation) {
 		String name = champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
@@ -35,10 +35,10 @@ public class PageScrape {
 		}
 	}
 	
-	private Page scrape(String champion, String relation, Integer championId) {
+	private Relation scrape(String champion, String relation, Integer championId) {
 		Integer pageId = pageId(championId, relation);
-		List<Block> blocks = new ArrayList<>();
-		Page page = new Page(pageId, champion, relation, blocks);
+		List<Vote> blocks = new ArrayList<>();
+		Relation page = new Relation(pageId, champion, relation, blocks);
 		Document document = null;
 		try {
 			document = Jsoup.connect(this.url).get();
@@ -73,7 +73,7 @@ public class PageScrape {
 			
 			Integer blockId = blockId(pageId, i-1);
 			
-			blocks.add(new Block(blockId, page, nameString, laneString, upInteger, downInteger));
+			blocks.add(new Vote(blockId, page, nameString, laneString, upInteger, downInteger));
 			page.setBlocks(blocks);
 		}
 		
@@ -81,7 +81,7 @@ public class PageScrape {
 	}
 
 	private boolean insert(String url, String champion, String relation, Integer championId) {
-		Page page = scrape(champion, relation, championId);
+		Relation page = scrape(champion, relation, championId);
 		boolean result = PageService.create(page);
 		return result & BlockService.createBlocks(page.getBlocks());
 	}
@@ -128,11 +128,11 @@ public class PageScrape {
 		this.url = url;
 	}
 	
-	public Page getPage() {
+	public Relation getPage() {
 		return page;
 	}
 
-	public void setPage(Page page) {
+	public void setPage(Relation page) {
 		this.page = page;
 	}
 }

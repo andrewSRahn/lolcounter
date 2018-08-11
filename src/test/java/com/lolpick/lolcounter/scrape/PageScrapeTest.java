@@ -7,8 +7,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
 
-import com.lolpick.lolcounter.entity.Block;
-import com.lolpick.lolcounter.entity.Page;
+import com.lolpick.lolcounter.entity.Vote;
+import com.lolpick.lolcounter.entity.Relation;
 import com.lolpick.lolcounter.service.BlockService;
 import com.lolpick.lolcounter.service.ChampionService;
 import com.lolpick.lolcounter.service.PageService;
@@ -20,8 +20,8 @@ public class PageScrapeTest {
 				ChampionService.readChampion("Amumu"),
 				"Weak");
 		
-		Page scrape = pageScrape.getPage();
-		Block block = new Block(
+		Relation scrape = pageScrape.getPage();
+		Vote block = new Vote(
 				100,
 				scrape,
 				"Shyvana", 
@@ -39,8 +39,8 @@ public class PageScrapeTest {
 		PageScrape pageScrape = new PageScrape(
 				ChampionService.readChampion("Blitzcrank"),
 				"Strong");
-		Page scrape = pageScrape.getPage();
-	    Block block = new Block(
+		Relation scrape = pageScrape.getPage();
+	    Vote block = new Vote(
 	    		480,
 				scrape,
 				"Sona", 
@@ -58,8 +58,8 @@ public class PageScrapeTest {
 		PageScrape pageScrape = new PageScrape(
 				ChampionService.readChampion("Janna"),
 				"Even");
-		Page scrape = pageScrape.getPage();
-	    Block block = new Block(
+		Relation scrape = pageScrape.getPage();
+	    Vote block = new Vote(
 	    		2520,
 				scrape,
 				"Anivia", 
@@ -77,8 +77,8 @@ public class PageScrapeTest {
 				ChampionService.readChampion("Leona"),
 				"Good");
 
-		Page scrape = pageScrape.getPage();
-		Block block = new Block(
+		Relation scrape = pageScrape.getPage();
+		Vote block = new Vote(
 				5040,
 				scrape,
 				"Jinx", 

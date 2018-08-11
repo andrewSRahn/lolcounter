@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
-import com.lolpick.lolcounter.entity.Block;
+import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.entity.Champion;
-import com.lolpick.lolcounter.entity.Page;
+import com.lolpick.lolcounter.entity.Relation;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
 import com.lolpick.lolcounter.scrape.LaneRoleScrape;
 import com.lolpick.lolcounter.scrape.PageScrape;
@@ -50,15 +50,15 @@ public class Stepdefs {
 		assertNotNull(champion);
 	}
 	
-	Page amumuPage = null;
-	Page blitzPage = null;
-	Page jannaPage = null;
-	Page leonaPage = null;
+	Relation amumuPage = null;
+	Relation blitzPage = null;
+	Relation jannaPage = null;
+	Relation leonaPage = null;
 	
-	Block amumuBlock = null;
-	Block blitzValidate = null;
-	Block jannaValidate = null;
-	Block leonaValidate = null;
+	Vote amumuBlock = null;
+	Vote blitzValidate = null;
+	Vote jannaValidate = null;
+	Vote leonaValidate = null;
 	
 	@Given("^/champions/name/relation is scraped$")
 	@SuppressWarnings("unused")
@@ -90,28 +90,28 @@ public class Stepdefs {
 
 	@Then("^Page block will contain image, foe, lane, up, and down$")
 	public void page_block_will_contain_image_foe_lane_up_and_down() throws Exception {
-		amumuBlock = new Block(
+		amumuBlock = new Vote(
 				100,
 				amumuPage,
 				"Shyvana", 
 				"Jungler", 
 				3164, 
 				1654);
-		blitzValidate = new Block(
+		blitzValidate = new Vote(
 				480,
 				blitzPage,
 				"Sona", 
 				"Bottom", 
 				3982, 
 				1857);
-		jannaValidate = new Block(
+		jannaValidate = new Vote(
 				2520,
 				jannaPage,
 				"Anivia", 
 				"Jungler", 
 				1335, 
 				1006);
-		leonaValidate = new Block(
+		leonaValidate = new Vote(
 				5040,
 				leonaPage,
 				"Jinx", 

@@ -7,8 +7,8 @@
 		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 		
 		<mapping class="com.lolpick.lolcounter.entity.Champion"></mapping>
-		<mapping class="com.lolpick.lolcounter.entity.Block"></mapping>
-		<mapping class="com.lolpick.lolcounter.entity.Page"></mapping>
+		<mapping class="com.lolpick.lolcounter.entity.Vote"></mapping>
+		<mapping class="com.lolpick.lolcounter.entity.Relation"></mapping>
  		<mapping class="com.lolpick.lolcounter.entity.Lane"></mapping>
 		<mapping class="com.lolpick.lolcounter.entity.Role"></mapping>
 	</session-factory>

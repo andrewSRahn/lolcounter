@@ -8,14 +8,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="block")
-public class Block {
+@Table(name="vote")
+public class Vote {
 	@Id
 	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="page_id", nullable=false)
-	private Page page;
+	private Relation page;
 	
 	@Column
 	private String name;
@@ -29,11 +29,11 @@ public class Block {
 	@Column
 	private Integer down;
 	
-	public Block() {
+	public Vote() {
 		super();
 	}
 
-	public Block(Integer id, Page page, String name, String lane, Integer up, Integer down) {
+	public Vote(Integer id, Relation page, String name, String lane, Integer up, Integer down) {
 		super();
 		this.id = id;
 		this.page = page;
@@ -83,11 +83,11 @@ public class Block {
 		this.down = down;
 	}
 
-	public Page getPage() {
+	public Relation getPage() {
 		return page;
 	}
 
-	public void setPage(Page page) {
+	public void setPage(Relation page) {
 		this.page = page;
 	}
 
@@ -109,7 +109,7 @@ public class Block {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Block other = (Block) obj;
+		Vote other = (Vote) obj;
 		if (lane == null) {
 			if (other.lane != null)
 				return false;

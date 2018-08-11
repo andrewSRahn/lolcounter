@@ -27,8 +27,8 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name="page")
-public class Page {
+@Table(name="relation")
+public class Relation {
 	@Id
 	Integer id;
 	
@@ -39,11 +39,11 @@ public class Page {
 	String relation;
 	
 	@OneToMany(mappedBy="page", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	List<Block> blocks;
+	List<Vote> blocks;
 	
-	public Page() {}
+	public Relation() {}
 
-	public Page(Integer id, String name, String relation, List<Block> blocks) {
+	public Relation(Integer id, String name, String relation, List<Vote> blocks) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -75,11 +75,11 @@ public class Page {
 		this.relation = relation;
 	}
 
-	public List<Block> getBlocks() {
+	public List<Vote> getBlocks() {
 		return blocks;
 	}
 
-	public void setBlocks(List<Block> blocks) {
+	public void setBlocks(List<Vote> blocks) {
 		this.blocks = blocks;
 	}
 
@@ -100,7 +100,7 @@ public class Page {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Page other = (Page) obj;
+		Relation other = (Relation) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
