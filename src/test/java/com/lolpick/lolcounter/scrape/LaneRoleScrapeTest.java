@@ -19,7 +19,8 @@ public class LaneRoleScrapeTest {
 	
 	@BeforeClass
 	public static void before() {
-		ChampionScrape.insert();
+		@SuppressWarnings("unused")
+		ChampionScrape scrape = new ChampionScrape();
 		LaneService.initialize();
 		RoleService.initialize();	
 	}

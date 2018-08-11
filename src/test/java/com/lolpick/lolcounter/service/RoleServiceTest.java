@@ -1,7 +1,6 @@
 package com.lolpick.lolcounter.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,10 +27,11 @@ public class RoleServiceTest {
 	 * Leona has lanes: support
 	 */
 	@Test
+	@SuppressWarnings("unused")
 	public void testLeona() {
 		RoleService.initialize();
 		LaneService.initialize();
-		ChampionScrape.insert();
+		ChampionScrape scrape = new ChampionScrape();
 		
 		Champion leona = ChampionService.readChampion("Leona");
 		System.out.println(leona);
@@ -59,10 +59,11 @@ public class RoleServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings("unused")
 	public void testAlistar() {
 		RoleService.initialize();
 		LaneService.initialize();
-		ChampionScrape.insert();
+		ChampionScrape scrape = new ChampionScrape();
 		
 		Champion alistar = ChampionService.readChampion("Alistar");
 		System.out.println(alistar);

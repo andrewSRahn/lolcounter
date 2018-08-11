@@ -10,12 +10,17 @@ import org.junit.Test;
 import com.lolpick.lolcounter.entity.Block;
 import com.lolpick.lolcounter.entity.Page;
 import com.lolpick.lolcounter.service.BlockService;
+import com.lolpick.lolcounter.service.ChampionService;
 import com.lolpick.lolcounter.service.PageService;
 
 public class PageScrapeTest {
 	@Test
 	public void testScrapeAmumu() throws Exception {
-		Page scrape = PageScrape.scrape("https://lolcounter.com/champions/amumu/weak", "Amumu", "Weak", 5);
+		PageScrape pageScrape = new PageScrape(
+				ChampionService.readChampion("Amumu"),
+				"Weak");
+		
+		Page scrape = pageScrape.getPage();
 		Block block = new Block(
 				100,
 				scrape,
@@ -31,11 +36,10 @@ public class PageScrapeTest {
 
 	@Test
 	public void testScrapeBlitz() throws Exception{
-		Page scrape = PageScrape.scrape(
-	    		"https://lolcounter.com/champions/blitzcrank/strong", 
-	    		"Blitzcrank", 
-	    		"Strong",
-	    		12);
+		PageScrape pageScrape = new PageScrape(
+				ChampionService.readChampion("Blitzcrank"),
+				"Strong");
+		Page scrape = pageScrape.getPage();
 	    Block block = new Block(
 	    		480,
 				scrape,
@@ -51,11 +55,10 @@ public class PageScrapeTest {
 	
 	@Test
 	public void testScrapeJanna() throws Exception{
-		Page scrape = PageScrape.scrape(
-	    		"https://lolcounter.com/champions/janna/even", 
-	    		"Janna", 
-	    		"Even",
-	    		42);
+		PageScrape pageScrape = new PageScrape(
+				ChampionService.readChampion("Janna"),
+				"Even");
+		Page scrape = pageScrape.getPage();
 	    Block block = new Block(
 	    		2520,
 				scrape,
@@ -70,12 +73,11 @@ public class PageScrapeTest {
 	
 	@Test
 	public void testScrapeLeona() throws Exception{
-		Page scrape = PageScrape.scrape(
-	    		"https://lolcounter.com/champions/leona/good", 
-	    		"Leona", 
-	    		"Good",
-	    		63);
-		
+		PageScrape pageScrape = new PageScrape(
+				ChampionService.readChampion("Leona"),
+				"Good");
+
+		Page scrape = pageScrape.getPage();
 		Block block = new Block(
 				5040,
 				scrape,

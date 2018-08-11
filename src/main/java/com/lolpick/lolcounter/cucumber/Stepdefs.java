@@ -61,28 +61,23 @@ public class Stepdefs {
 	Block leonaValidate = null;
 	
 	@Given("^/champions/name/relation is scraped$")
+	@SuppressWarnings("unused")
 	public void champions_name_relation_is_scraped() throws Exception {
+	    PageScrape amumu = new PageScrape(
+	    		ChampionService.readChampion("Amumu"),
+	    		"Weak");
 	    
-	    PageService.create(PageScrape.scrape(
-	    		"https://lolcounter.com/champions/amumu/weak", 
-	    		"Amumu", 
-	    		"Weak",
-	    		5));
-	    PageService.create(PageScrape.scrape(
-	    		"https://lolcounter.com/champions/blitzcrank/strong", 
-	    		"Blitzcrank", 
-	    		"Strong",
-	    		12));
-	    PageService.create(PageScrape.scrape(
-	    		"https://lolcounter.com/champions/janna/even", 
-	    		"Janna", 
-	    		"Even",
-	    		42));
-	    PageService.create(PageScrape.scrape(
-	    		"https://lolcounter.com/champions/leona/good", 
-	    		"Leona", 
-	    		"Good",
-	    		63));
+	    PageScrape blitz = new PageScrape(
+	    		ChampionService.readChampion("Blitzcrank"),
+	    		"Strong");
+	    
+	    PageScrape janna = new PageScrape(
+	    		ChampionService.readChampion("Janna"),
+	    		"Even");
+	    
+	    PageScrape leona = new PageScrape(
+	    		ChampionService.readChampion("Leona"),
+	    		"Good");
 	}
 
 	@When("^Page service reads pages$")

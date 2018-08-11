@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lolpick.lolcounter.scrape.PageScrape;
-import com.lolpick.lolcounter.service.PageService;
+import com.lolpick.lolcounter.service.ChampionService;
 
 public class Fail {
 	public static void appendToFile(String file, String url, String name, String relation, Integer id) {
@@ -35,13 +35,15 @@ public class Fail {
 			
 			for(int i = 0; i < all.size(); i++) {
 				String lines[] = all.get(i).split(":");
-				String url = lines[0] + ":" + lines[1];
 				String name = lines[2];
 				String relation = lines[3];
-				Integer id = Integer.parseInt(lines[4]);
 				
-				remove(file, i+1);				
-				PageService.create(PageScrape.scrape(url, name, relation, id));
+				remove(file, i+1);
+				
+				@SuppressWarnings("unused")
+				PageScrape scrape = new PageScrape(
+						ChampionService.readChampion(name),
+						relation);
 			}
 			
 		} catch(IOException e) {

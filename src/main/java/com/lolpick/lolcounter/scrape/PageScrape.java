@@ -17,12 +17,13 @@ import com.lolpick.lolcounter.service.PageService;
 
 public class PageScrape {
 	private String url;
+	private Page page;
 
 	public PageScrape(Champion champion, String relation) {
 		String name = champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
 		this.url = "https://lolcounter.com/champions/" + name + "/" + relation.toLowerCase();
 		
-		scrape(name, relation, champion.getId());
+		this.page = scrape(name, relation, champion.getId());
 		try {
 			if(insert(this.url, champion.getName(), relation, champion.getId()))
 				System.out.println(this.url);
@@ -105,7 +106,7 @@ public class PageScrape {
 		}
 	}
 
-	private static int count(Document document) {
+	public static int count(Document document) {
 		return document.select(".champ-block").size()-1;
 	}
 	
@@ -125,5 +126,13 @@ public class PageScrape {
 	
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
 	}
 }

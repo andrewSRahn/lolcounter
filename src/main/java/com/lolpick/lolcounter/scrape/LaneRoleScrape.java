@@ -80,6 +80,7 @@ public class LaneRoleScrape {
 		return role && champion;
 	}
 	
+	@SuppressWarnings("unused")
 	private Integer laneSwitch(String lane) {
 		switch(lane) {
 		case "Bottom": return 0;
@@ -91,6 +92,7 @@ public class LaneRoleScrape {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private int roleSwitch(String role) {
 		switch(role) {
 		case "Assassin": return 0;
