@@ -74,10 +74,10 @@ public class LaneRoleScrape {
 	}
 	
 	public boolean insert() {
-//		boolean lane = LaneService.update(this.champion.getLanes(), this.champion);
+		boolean lane = LaneService.update(this.champion.getLanes(), this.champion);
 		boolean role = RoleService.update(this.champion.getRoles(), this.champion);
 		boolean champion = ChampionService.updateChampion(this.champion);
-		return role;
+		return lane && role && champion;
 	}
 	
 	@SuppressWarnings("unused")

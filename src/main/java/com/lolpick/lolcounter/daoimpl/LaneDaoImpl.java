@@ -1,5 +1,6 @@
 package com.lolpick.lolcounter.daoimpl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Session;
@@ -11,39 +12,6 @@ import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.hibernate.HibernateUtil;
 
 public class LaneDaoImpl implements LaneDao{
-	
-	@Override
-	public boolean update(Set<Lane> lanes) {
-		for(Lane lane: lanes) 
-			if(!updateLane(lane))
-				return false;
-			
-		return true;
-	}
-	
-	private boolean updateLane(Lane lane) {
-		Session session = null;
-		Transaction transaction = null;
-		
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
-			
-			Lane current = session.get(Lane.class, lane.getId());
-			current.setChampions(lane.getChampions());
-			session.saveOrUpdate(current);
-			transaction.commit();
-			
-			return true;
-		} catch(Exception e) {
-			e.printStackTrace();
-			transaction.rollback();
-		} finally {
-			session.close();
-		}
-		
-		return false;
-	}
 	
 	@Override
 	public boolean create(Set<Lane> lanes) {
@@ -75,40 +43,6 @@ public class LaneDaoImpl implements LaneDao{
 	}
 
 	@Override
-	public boolean create(Set<Lane> lanes, String champion) {
-		Session session = null;
-		Transaction transaction = null;
-		
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
-			
-			Champion champ = session.createQuery("from Champion where name like :name", Champion.class)
-					.setParameter("name", champion)
-					.getSingleResult();
-			
-			for(Lane lane: lanes) {
-				lane.getChampions().add(champ);
-				session.saveOrUpdate(lane);
-			}
-			
-			champ.setLanes(lanes);
-			
-			session.saveOrUpdate(champ);
-			transaction.commit();
-			
-			return true;
-		} catch(Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		
-		return false;
-	}
-	
-	@Override
 	public Lane read(String lane) {
 		Session session = null;
 		
@@ -125,5 +59,40 @@ public class LaneDaoImpl implements LaneDao{
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public boolean update(Set<Lane> lanes, Champion champion) {
+		for(Lane lane: lanes) 
+			if(!update(lane, champion))
+				return false;
+		
+		return true;
+	}
+	
+	private boolean update(Lane current, Champion champion) {
+		Session session = null;
+		Transaction transaction = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			
+			Lane stale = session.get(Lane.class, current.getId());
+			List<Champion> champions = current.getChampions();
+			champions.add(champion);
+			stale.setChampions(champions);
+			
+			session.merge(stale);
+			transaction.commit();
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			session.close();
+		}
+		
+		return false;
 	}
 }

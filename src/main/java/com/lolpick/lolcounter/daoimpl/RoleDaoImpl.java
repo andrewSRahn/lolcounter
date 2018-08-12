@@ -85,11 +85,10 @@ public class RoleDaoImpl implements RoleDao{
 			stale.setChampions(champions);
 			
 			session.merge(current);
-			session.saveOrUpdate(current);
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			transaction.rollback();
 		} finally {
 			session.close();

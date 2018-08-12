@@ -14,6 +14,8 @@ public class RoleServiceTest {
 	
 	@Test
 	public void testInitialize() {
+		@SuppressWarnings("unused")
+		ChampionScrape championScrape = new ChampionScrape();
 		assertTrue(RoleService.initialize());
 		assertEquals(RoleService.read("Assassin").getId(), new Integer(0));
 		assertNotEquals(RoleService.read("Support").getId(), new Integer(0));		
@@ -29,6 +31,7 @@ public class RoleServiceTest {
 	@SuppressWarnings("unused")
 	public void testLeona() {
 		RoleService.initialize();
+		LaneService.initialize();
 		
 		Champion leona = ChampionService.readChampion("Leona");
 		System.out.println(leona);
@@ -37,9 +40,6 @@ public class RoleServiceTest {
 		
 		LaneRoleScrape leonaScrape = new LaneRoleScrape(leona);
 		System.out.println(leona.getRoles());
-		
-		
-		
 		
 	}
 	

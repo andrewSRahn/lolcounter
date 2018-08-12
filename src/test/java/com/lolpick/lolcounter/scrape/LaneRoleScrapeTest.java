@@ -22,7 +22,7 @@ public class LaneRoleScrapeTest {
 		@SuppressWarnings("unused")
 		ChampionScrape scrape = new ChampionScrape();
 		LaneService.initialize();
-		RoleService.initialize();	
+		RoleService.initialize();
 	}
 	
 	@Test
