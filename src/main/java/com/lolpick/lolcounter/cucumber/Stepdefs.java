@@ -6,9 +6,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
-import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.entity.Champion;
+import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.entity.Power;
+import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
 import com.lolpick.lolcounter.scrape.LaneRoleScrape;
 import com.lolpick.lolcounter.scrape.VoteScrape;
@@ -90,39 +91,39 @@ public class Stepdefs {
 
 	@Then("^Page block will contain image, foe, lane, up, and down$")
 	public void page_block_will_contain_image_foe_lane_up_and_down() throws Exception {
-		amumuBlock = new Vote(
-				100,
-				amumuPage,
-				"Shyvana", 
-				"Jungler", 
-				3164, 
-				1654);
-		blitzValidate = new Vote(
-				480,
-				blitzPage,
-				"Sona", 
-				"Bottom", 
-				3982, 
-				1857);
-		jannaValidate = new Vote(
-				2520,
-				jannaPage,
-				"Anivia", 
-				"Jungler", 
-				1335, 
-				1006);
-		leonaValidate = new Vote(
-				5040,
-				leonaPage,
-				"Jinx", 
-				"", 
-				4454, 
-				1430);
-		
-		assertTrue(amumuPage.getBlocks().contains(amumuBlock));
-		assertTrue(blitzPage.getBlocks().contains(blitzValidate));
-		assertTrue(jannaPage.getBlocks().contains(jannaValidate));
-		assertTrue(leonaPage.getBlocks().contains(leonaValidate));
+//		amumuBlock = new Vote(
+//				100,
+//				amumuPage,
+//				"Shyvana", 
+//				"Jungler", 
+//				3164, 
+//				1654);
+//		blitzValidate = new Vote(
+//				480,
+//				blitzPage,
+//				"Sona", 
+//				"Bottom", 
+//				3982, 
+//				1857);
+//		jannaValidate = new Vote(
+//				2520,
+//				jannaPage,
+//				"Anivia", 
+//				"Jungler", 
+//				1335, 
+//				1006);
+//		leonaValidate = new Vote(
+//				5040,
+//				leonaPage,
+//				"Jinx", 
+//				"", 
+//				4454, 
+//				1430);
+//		
+//		assertTrue(amumuPage.getBlocks().contains(amumuBlock));
+//		assertTrue(blitzPage.getBlocks().contains(blitzValidate));
+//		assertTrue(jannaPage.getBlocks().contains(jannaValidate));
+//		assertTrue(leonaPage.getBlocks().contains(leonaValidate));
 	}
 	
 	@Given("^Champion and Lane tables are initialized$")
@@ -137,12 +138,16 @@ public class Stepdefs {
 
 	@Then("^Blitzcrank will be a support and jungler$")
 	public void blitzcrank_will_be_a_support_and_jungler() throws Exception {
-		
+		Champion blitzcrank = ChampionService.readChampion("Blitzcrank");
+		assertTrue(blitzcrank.getLanes().contains(LaneService.read("Support")));
+		assertTrue(blitzcrank.getLanes().contains(LaneService.read("Jungler")));
 	}
 
 	@Then("^Leona will be a support$")
 	public void leona_will_be_a_support() throws Exception {
-	    // Write code here that turns the phrase above into concrete actions
+		Lane lanes = LaneService.read("Support");
+		System.out.println(lanes.getChampions());
+		assertTrue(lanes.getChampions().contains(ChampionService.readChampion("Leona")));
 	}
 
 	

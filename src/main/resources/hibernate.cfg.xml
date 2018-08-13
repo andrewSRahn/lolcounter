@@ -11,5 +11,6 @@
 		<mapping class="com.lolpick.lolcounter.entity.Power"></mapping>
  		<mapping class="com.lolpick.lolcounter.entity.Lane"></mapping>
 		<mapping class="com.lolpick.lolcounter.entity.Role"></mapping>
+		<mapping class="com.lolpick.lolcounter.entity.Tip"></mapping>
 	</session-factory>
 </hibernate-configuration>

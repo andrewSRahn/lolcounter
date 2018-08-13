@@ -61,10 +61,9 @@ public class LaneRoleScrape {
 			this.champion.getLanes().add(LaneService.read(lane));
 		}
 		
-		boolean bottom = this.champion.getLanes().contains(LaneService.read("Bottom"));
 		boolean support = this.champion.getRoles().contains(RoleService.read("Support"));
 		
-		if(bottom && support) {
+		if(support) {
 			this.champion.getLanes().remove(LaneService.read("Bottom"));
 			this.champion.getRoles().remove(RoleService.read("Support"));
 			this.champion.getLanes().add(LaneService.read("Support"));
