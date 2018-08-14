@@ -2,17 +2,23 @@ package com.lolpick.lolcounter.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tip")
-public class Tip {
+public class Tip implements Comparable<Tip>{
 	
 	@Id
 	@Column(name="tip_id")
+	@SequenceGenerator(name="tip_sequence",
+		initialValue=1,
+		allocationSize=600)
+	@GeneratedValue(generator="tip_sequence")
 	private Integer id;
 	
 	@Column
@@ -29,9 +35,9 @@ public class Tip {
 		super();
 	}
 
-	public Tip(Integer id, Integer votes, Champion champion, String tip) {
+	public Tip(Integer votes, Champion champion, String tip) {
 		super();
-		this.id = id;
+		this.id = null;
 		this.votes = votes;
 		this.champion = champion;
 		this.tip = tip;
@@ -71,17 +77,14 @@ public class Tip {
 
 	@Override
 	public String toString() {
-		return "Tip [id=" + id + ", votes=" + votes + ", champion=" + champion + ", tip=" + tip + "]";
+		return "Tip [id=" + id + ", votes=" + votes + ", champion=" + champion + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((champion == null) ? 0 : champion.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((tip == null) ? 0 : tip.hashCode());
-		result = prime * result + ((votes == null) ? 0 : votes.hashCode());
 		return result;
 	}
 
@@ -99,21 +102,21 @@ public class Tip {
 				return false;
 		} else if (!champion.equals(other.champion))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
 		if (tip == null) {
 			if (other.tip != null)
 				return false;
 		} else if (!tip.equals(other.tip))
 			return false;
-		if (votes == null) {
-			if (other.votes != null)
-				return false;
-		} else if (!votes.equals(other.votes))
-			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Tip o) {
+		if(this.votes > o.getVotes())
+			return 1;
+		else if(this.votes < o.getVotes())
+			return -1;
+		else 
+			return 0;
 	}
 }
