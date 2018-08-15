@@ -42,5 +42,5 @@ public class TipScrapeTest {
 		System.out.println(tips);
 		assertTrue(tips.containsAll(should));
 	}
-
+	
 }
