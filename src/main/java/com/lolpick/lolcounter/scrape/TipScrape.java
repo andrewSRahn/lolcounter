@@ -1,11 +1,10 @@
 package com.lolpick.lolcounter.scrape;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.TreeSet;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Tip;
@@ -16,24 +15,26 @@ public class TipScrape {
 
 	public TipScrape(Champion champion) {
 		this.champion = champion;
-		this.tips = scrape();
+		this.tips = all();
 	}
 	
-	private Set<Tip> scrape() {
-		Champion lee = mock(Champion.class);
-		when(lee.getName()).thenReturn("Lee Sin");
-		when(lee.getId()).thenReturn(62);
+	private Set<Tip> all() {
+		Set<Tip> tips = new TreeSet<>();
 		
-		Champion syndra = mock(Champion.class);
-		when(syndra.getName()).thenReturn("Syndra");
-		when(syndra.getId()).thenReturn(107);
 		
-		Set<Tip> should = Stream.of(
-				new Tip(1164, null, "After level 6, try to prevent her use of Mark of the Assassin, as she can proc it twice using her dashes."),
-				new Tip(348, lee, "Your Q and your E can reveal Akali in stealth. Use this to your advantage."),
-				new Tip(-39, syndra, "Upgrading your trinket to a pink totem can give you a permanent pink to throw down when you need it."))
-					.collect(Collectors.toSet());
-		return should;
+//		while(current != last) {
+//			tips.addAll(page());
+//		}
+		
+		return tips;
+	}
+	
+	public Set<Tip> page(String url){
+		Set<Tip> tips = new TreeSet<>();
+		
+		
+		
+		return tips;
 	}
 
 	public Champion getChampion() {

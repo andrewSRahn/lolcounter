@@ -1,4 +1,4 @@
-package com.lolpick.lolcounter.cucumber;
+package com.lolpick.lolcounter.glue;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

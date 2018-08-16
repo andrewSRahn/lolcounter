@@ -42,30 +42,4 @@ public class RoleServiceTest {
 		System.out.println(leona.getRoles());
 		
 	}
-	
-//	@Test
-//	@SuppressWarnings("unused")
-//	public void testAlistar() {
-//		RoleService.initialize();
-//		ChampionScrape scrape = new ChampionScrape();
-//		
-//		Champion alistar = ChampionService.readChampion("Alistar");
-//		System.out.println(alistar);
-//		
-//		assertTrue(alistar.getRoles().isEmpty());
-//		System.out.println(alistar.getRoles());
-//		
-//		LaneRoleScrape alistarScrape = new LaneRoleScrape(alistar);
-//		
-//		alistar = ChampionService.readChampion("Alistar");
-//		System.out.println(alistar);
-//		
-//		Role tank = RoleService.read("Tank");
-//		Role magical = RoleService.read("Magical Damage");
-//		
-//		for(Champion champion: tank.getChampions())
-//			System.out.println(champion);
-//		for(Champion champion: magical.getChampions())
-//			System.out.println(champion);
-//	}
 }

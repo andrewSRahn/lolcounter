@@ -1,7 +1,5 @@
 package com.lolpick.lolcounter.scrape;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.junit.Assert.*;
 
 import java.util.Set;
@@ -12,22 +10,15 @@ import org.junit.Test;
 
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Tip;
+import com.lolpick.lolcounter.service.ChampionService;
 
 public class TipScrapeTest {
 
 	@Test
 	public void testAkali() {
-		Champion akali = mock(Champion.class);
-		when(akali.getName()).thenReturn("Akali");
-		when(akali.getId()).thenReturn(3);
-		
-		Champion lee = mock(Champion.class);
-		when(lee.getName()).thenReturn("Lee Sin");
-		when(lee.getId()).thenReturn(62);
-		
-		Champion syndra = mock(Champion.class);
-		when(syndra.getName()).thenReturn("Syndra");
-		when(syndra.getId()).thenReturn(107);
+		Champion akali = ChampionService.readChampion("Akali");
+		Champion lee = ChampionService.readChampion("Lee Sin");
+		Champion syndra = ChampionService.readChampion("Syndra");
 		
 		TipScrape tipScrape = new TipScrape(akali);
 		
@@ -38,9 +29,12 @@ public class TipScrapeTest {
 			new Tip(-39, syndra, "Upgrading your trinket to a pink totem can give you a permanent pink to throw down when you need it."))
 				.collect(Collectors.toSet());
 		
-		System.out.println(should);
-		System.out.println(tips);
 		assertTrue(tips.containsAll(should));
+	}
+	
+	@Test
+	public void testPage() {
+		
 	}
 	
 }

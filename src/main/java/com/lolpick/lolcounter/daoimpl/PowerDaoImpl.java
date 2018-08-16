@@ -36,7 +36,7 @@ public class PowerDaoImpl implements PowerDao{
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			return session.createQuery("from Page where name like :name and relation like :relation", Power.class)
+			return session.createQuery("from page where name like :name and relation like :relation", Power.class)
 					.setParameter("name", name)
 					.setParameter("relation", relation)
 					.getSingleResult();
