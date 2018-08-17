@@ -35,38 +35,46 @@ public class TipScrapeTest {
 	}
 	
 	@Test
-	public void testCountAkali() {
+	public void testCountChampionAkali() {
 		Champion akali = ChampionService.readChampion("Akali");
 		TipScrape tipScrape = new TipScrape(akali);
-		assertEquals(14, tipScrape.count());
+		assertEquals(14, tipScrape.countChampion());
 	}
 	
 	@Test
-	public void testCountAurelion() {
+	public void testCountChampionAurelion() {
 		Champion aurelion = ChampionService.readChampion("Aurelion Sol");
 		TipScrape tipScrape = new TipScrape(aurelion);
-		assertEquals(1, tipScrape.count());
+		assertEquals(1, tipScrape.countChampion());
 	}
 	
 	@Test
-	public void testCountCho() {
+	public void testCountChampionCho() {
 		Champion cho = ChampionService.readChampion("Cho'Gath");
 		TipScrape tipScrape = new TipScrape(cho);
-		assertEquals(6, tipScrape.count());
+		assertEquals(6, tipScrape.countChampion());
 	}
 	
 	@Test
-	public void testCountLee() {
+	public void testCountChampionLee() {
 		Champion lee = ChampionService.readChampion("Lee Sin");
 		TipScrape tipScrape = new TipScrape(lee);
-		assertEquals(7, tipScrape.count());
+		assertEquals(7, tipScrape.countChampion());
 	}
 
 	@Test
-	public void testCountZed() {
+	public void testCountChampionZed() {
 		Champion zed = ChampionService.readChampion("Zed");
 		TipScrape tipScrape = new TipScrape(zed);
-		assertEquals(18, tipScrape.count());
+		assertEquals(18, tipScrape.countChampion());
+	}
+	
+	@Test
+	public void testPageZed() {
+		Champion zed = ChampionService.readChampion("Zed");
+		TipScrape tipScrape = new TipScrape(zed);
+		assertEquals(3, tipScrape.countPage(18));
+		assertEquals(10, tipScrape.countPage(17));
 	}
 	
 }

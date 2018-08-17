@@ -12,14 +12,22 @@ import com.lolpick.lolcounter.entity.Tip;
 public class TipScrape {
 	private Champion champion;
 	private Set<Tip> tips;
+	
+	private String name; 
+	private String base; 
 
 	public TipScrape(Champion champion) {
 		this.champion = champion;
+		this.name = this.champion.getName().toLowerCase().replace(" ", "").replace("'", "");
+		this.base = "https://lolcounter.com/tips/" + name + "/all?page=";
 		this.tips = scrapeChampion();
 	}
 	
-	private Set<Tip> scrapeChampion() {
+	public Set<Tip> scrapeChampion() {
 		Set<Tip> tips = new TreeSet<>();
+		
+		for(int i = 1; i <= countChampion(); i++)
+			System.out.println(this.base + i);
 		
 		return tips;
 	}
@@ -27,14 +35,17 @@ public class TipScrape {
 	public Set<Tip> scrapePage(){
 		Set<Tip> tips = new TreeSet<>();
 		
-		return tips;
+		String votes = "#tips-matchup > div.tips.ss > div > div.votes";
+		String image = "#tips-matchup > div.tips.ff > div.tips._1 > div.left.champ-img";
+		return null;
 	}
 	
-	public int count() {
-		String name = this.champion.getName().toLowerCase().replace(" ", "").replace("'", "");
-		String base = "https://lolcounter.com/tips/" + name + "/all?page=";
-		
-		return connect(base, base + "5");
+	public int countPage(int page) {
+		return 0;
+	}
+	
+	public int countChampion() {
+		return connect(this.base, this.base + "5");
 	}
 	
 	public int connect(String base, String url) {
