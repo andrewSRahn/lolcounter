@@ -33,8 +33,38 @@ public class TipScrapeTest {
 	}
 	
 	@Test
-	public void testPage() {
-		
+	public void testCountAkali() {
+		Champion akali = ChampionService.readChampion("Akali");
+		TipScrape tipScrape = new TipScrape(akali);
+		assertEquals(14, tipScrape.count());
+	}
+	
+	@Test
+	public void testCountAurelion() {
+		Champion aurelion = ChampionService.readChampion("Aurelion Sol");
+		TipScrape tipScrape = new TipScrape(aurelion);
+		assertEquals(3, tipScrape.count());
+	}
+	
+	@Test
+	public void testCountCho() {
+		Champion cho = ChampionService.readChampion("Cho'Gath");
+		TipScrape tipScrape = new TipScrape(cho);
+		assertEquals(6, tipScrape.count());
+	}
+	
+	@Test
+	public void testCountLee() {
+		Champion lee = ChampionService.readChampion("Lee Sin");
+		TipScrape tipScrape = new TipScrape(lee);
+		assertEquals(7, tipScrape.count());
+	}
+
+	@Test
+	public void testCountZed() {
+		Champion zed = ChampionService.readChampion("Zed");
+		TipScrape tipScrape = new TipScrape(zed);
+		assertEquals(18, tipScrape.count());
 	}
 	
 }
