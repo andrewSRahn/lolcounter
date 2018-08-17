@@ -32,23 +32,28 @@ public class TipScrape {
 	
 	public int count() {
 		String name = this.champion.getName().toLowerCase().replace(" ", "").replace("'", "");
-		String url = "https://lolcounter.com/tips/" + name + "/all?page=5";
+		String base = "https://lolcounter.com/tips/" + name + "/all?page=";
 		
+		return connect(base, base + "5");
+	}
+	
+	public int connect(String base, String url) {
 		try {
 			Document document = Jsoup.connect(url).get();
 			String left = "#tips-matchup > div.left.pagination > a:last-child";
 			String leftText = document.select(left).text();
-			System.out.println(url + ":" + leftText);
 			
 			String more = "#tips-matchup > div.paginationmore > span > em > a";
 			String moreText = document.select(more).text();
-			System.out.println(url + ":" + moreText);
 			
+			if(!moreText.equals(">>"))
+				return Integer.parseInt(leftText);
+			else
+				return connect(base, base + leftText);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		} 
-		
 		return 0;
 	}
 
