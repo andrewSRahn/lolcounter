@@ -5,7 +5,7 @@ import org.hibernate.Transaction;
 
 import com.lolpick.lolcounter.dao.VoteDao;
 import com.lolpick.lolcounter.entity.Vote;
-import com.lolpick.lolcounter.hibernate.HibernateUtil;
+import com.lolpick.lolcounter.utility.HibernateUtil;
 
 public class VoteDaoImpl implements VoteDao{
 

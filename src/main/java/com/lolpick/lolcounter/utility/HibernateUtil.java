@@ -1,4 +1,4 @@
-package com.lolpick.lolcounter.hibernate;
+package com.lolpick.lolcounter.utility;
 
 import java.util.Properties;
 

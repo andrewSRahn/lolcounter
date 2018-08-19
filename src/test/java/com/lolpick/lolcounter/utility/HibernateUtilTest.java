@@ -1,7 +1,10 @@
-package com.lolpick.lolcounter.hibernate;
+package com.lolpick.lolcounter.utility;
 
 import org.hibernate.SessionFactory;
 import org.junit.Test;
+
+import com.lolpick.lolcounter.utility.HibernateUtil;
+
 import static org.junit.Assert.*;
 
 public class HibernateUtilTest {

@@ -1,14 +1,19 @@
 package com.lolpick.lolcounter.scrape;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Tip;
+import com.lolpick.lolcounter.service.ChampionService;
 
 public class TipScrape {
 	private Champion champion;
@@ -27,16 +32,34 @@ public class TipScrape {
 	public Set<Tip> scrapeChampion() {
 		Set<Tip> tips = new TreeSet<>();
 		
+		for(int i=1; i<=countChampion(); i++)
+			tips.addAll(scrapePage(this.base + i));
 		
 		return tips;
 	}
 	
-	public Set<Tip> scrapePage(){
-		Set<Tip> tips = new TreeSet<>();
+	public Set<Tip> scrapePage(String url){
+		Set<Tip> tips = new TreeSet<Tip>();
+		try {
+			Document document = Jsoup.connect(url).get();
+			
+			Elements votesElements = document.select(".tips > .votes");
+			Elements themElements = document.select(".tips > .champ-img");
+			
+			List<Integer> votes = votesElements.stream().map(vote -> Integer.parseInt(vote.text())).collect(Collectors.toList());
+			List<Champion> them = new ArrayList<>();
+			
+			
+			System.out.println(themElements);
+			
+			System.out.println(votes);
+			System.out.println(them);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		String votes = "#tips-matchup > div.tips.ss > div > div.votes";
-		String image = "#tips-matchup > div.tips.ff > div.tips._1 > div.left.champ-img";
-		return null;
+		return tips;
 	}
 	
 	public int countPage(int page) {

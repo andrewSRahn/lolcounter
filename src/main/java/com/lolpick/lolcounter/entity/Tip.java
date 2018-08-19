@@ -25,8 +25,12 @@ public class Tip implements Comparable<Tip>{
 	private Integer votes;
 	
 	@ManyToOne
-	@JoinColumn(name="champion_id")
-	private Champion champion;
+	@JoinColumn(name="us")
+	private Champion us;
+	
+	@ManyToOne
+	@JoinColumn(name="them")
+	private Champion them;
 	
 	@Column
 	private String tip;
@@ -34,12 +38,12 @@ public class Tip implements Comparable<Tip>{
 	public Tip() {
 		super();
 	}
-
-	public Tip(Integer votes, Champion champion, String tip) {
+	
+	public Tip(Integer votes, Champion us, Champion them, String tip) {
 		super();
 		this.id = null;
-		this.votes = votes;
-		this.champion = champion;
+		this.us = us;
+		this.them = them;
 		this.tip = tip;
 	}
 
@@ -58,15 +62,7 @@ public class Tip implements Comparable<Tip>{
 	public void setVotes(Integer votes) {
 		this.votes = votes;
 	}
-
-	public Champion getChampion() {
-		return champion;
-	}
-
-	public void setChampion(Champion champion) {
-		this.champion = champion;
-	}
-
+	
 	public String getTip() {
 		return tip;
 	}
@@ -75,9 +71,25 @@ public class Tip implements Comparable<Tip>{
 		this.tip = tip;
 	}
 
+	public Champion getUs() {
+		return us;
+	}
+
+	public void setUs(Champion us) {
+		this.us = us;
+	}
+
+	public Champion getThem() {
+		return them;
+	}
+
+	public void setThem(Champion them) {
+		this.them = them;
+	}
+
 	@Override
 	public String toString() {
-		return "Tip [id=" + id + ", votes=" + votes + ", champion=" + champion + "]";
+		return "Tip [id=" + id + ", votes=" + votes + ", champion=" + us + "]";
 	}
 
 	@Override
@@ -97,10 +109,10 @@ public class Tip implements Comparable<Tip>{
 		if (getClass() != obj.getClass())
 			return false;
 		Tip other = (Tip) obj;
-		if (champion == null) {
-			if (other.champion != null)
+		if (us == null) {
+			if (other.us != null)
 				return false;
-		} else if (!champion.equals(other.champion))
+		} else if (!us.equals(other.us))
 			return false;
 		if (tip == null) {
 			if (other.tip != null)

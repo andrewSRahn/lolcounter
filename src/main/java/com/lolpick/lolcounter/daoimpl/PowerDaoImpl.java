@@ -5,7 +5,7 @@ import org.hibernate.Transaction;
 
 import com.lolpick.lolcounter.dao.PowerDao;
 import com.lolpick.lolcounter.entity.Power;
-import com.lolpick.lolcounter.hibernate.HibernateUtil;
+import com.lolpick.lolcounter.utility.HibernateUtil;
 
 public class PowerDaoImpl implements PowerDao{
 

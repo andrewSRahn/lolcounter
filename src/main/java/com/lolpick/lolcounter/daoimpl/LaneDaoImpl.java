@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import com.lolpick.lolcounter.dao.LaneDao;
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Lane;
-import com.lolpick.lolcounter.hibernate.HibernateUtil;
+import com.lolpick.lolcounter.utility.HibernateUtil;
 
 public class LaneDaoImpl implements LaneDao{
 	

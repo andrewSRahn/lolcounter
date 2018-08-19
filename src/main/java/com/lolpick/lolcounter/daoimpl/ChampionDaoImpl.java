@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import com.lolpick.lolcounter.dao.ChampionDao;
 import com.lolpick.lolcounter.entity.Champion;
-import com.lolpick.lolcounter.hibernate.HibernateUtil;
+import com.lolpick.lolcounter.utility.HibernateUtil;
 
 public class ChampionDaoImpl implements ChampionDao {
 	@Override
