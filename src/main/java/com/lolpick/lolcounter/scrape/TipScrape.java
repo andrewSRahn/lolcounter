@@ -14,6 +14,7 @@ import org.jsoup.select.Elements;
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Tip;
 import com.lolpick.lolcounter.service.ChampionService;
+import com.lolpick.lolcounter.utility.ChampionUtil;
 
 public class TipScrape {
 	private Champion champion;
@@ -39,27 +40,44 @@ public class TipScrape {
 	}
 	
 	public Set<Tip> scrapePage(String url){
-		Set<Tip> tips = new TreeSet<Tip>();
 		try {
 			Document document = Jsoup.connect(url).get();
 			
 			Elements votesElements = document.select(".tips > .votes");
 			Elements themElements = document.select(".tips > .champ-img");
+			Elements tipsElements = document.select(".tips > .tip");
 			
 			List<Integer> votes = votesElements.stream().map(vote -> Integer.parseInt(vote.text())).collect(Collectors.toList());
 			List<Champion> them = new ArrayList<>();
+			List<String> tipsString = tipsElements.stream().map(tip -> tip.text()).collect(Collectors.toList());
 			
+			for(Element themElement: themElements) {
+				String find = themElement.attr("find");
+				
+				if(find.equals("generic"))
+					them.add(null);
+				else if(find.contains(" ") || find.contains("'") || find.contains(".")) 
+					them.add(ChampionService.readChampion(ChampionUtil.expandChampionName(find)));
+				else
+					them.add(ChampionService.readChampion(find.substring(0, 1).toUpperCase() + find.substring(1, find.length())));
+			}
 			
-			System.out.println(themElements);
-			
-			System.out.println(votes);
-			System.out.println(them);
-			
+			return createTips(votes, them, tipsString);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		return tips;
+		return null;
+	}
+	
+	public Set<Tip> createTips(List<Integer> votes, List<Champion> them, List<String> tips){
+		Set<Tip> tipSet = new TreeSet<>();
+
+		for(int i=0; i<votes.size(); i++)
+			tipSet.add(new Tip(votes.get(i), this.champion, them.get(i), tips.get(i)));
+
+		System.out.println(tipSet);
+		return tipSet;
 	}
 	
 	public int countPage(int page) {

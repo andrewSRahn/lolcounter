@@ -42,6 +42,7 @@ public class Tip implements Comparable<Tip>{
 	public Tip(Integer votes, Champion us, Champion them, String tip) {
 		super();
 		this.id = null;
+		this.votes = votes;
 		this.us = us;
 		this.them = them;
 		this.tip = tip;
@@ -89,7 +90,7 @@ public class Tip implements Comparable<Tip>{
 
 	@Override
 	public String toString() {
-		return "Tip [id=" + id + ", votes=" + votes + ", champion=" + us + "]";
+		return "Tip [id=" + id + ", votes=" + votes + ", champion=" + us.getName() + ", tip=" + tip + "]";
 	}
 
 	@Override
