@@ -5,6 +5,7 @@ import java.util.TreeSet;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Tip;
@@ -26,8 +27,6 @@ public class TipScrape {
 	public Set<Tip> scrapeChampion() {
 		Set<Tip> tips = new TreeSet<>();
 		
-		for(int i = 1; i <= countChampion(); i++)
-			System.out.println(this.base + i);
 		
 		return tips;
 	}
@@ -41,14 +40,21 @@ public class TipScrape {
 	}
 	
 	public int countPage(int page) {
+		try {
+			Document document = Jsoup.connect(this.base + page).get();
+			return document.select("[class ^= tips _]").size();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return 0;
 	}
 	
 	public int countChampion() {
-		return connect(this.base, this.base + "5");
+		return countChampionTail(this.base, this.base + "5");
 	}
 	
-	public int connect(String base, String url) {
+	public int countChampionTail(String base, String url) {
 		try {
 			Document document = Jsoup.connect(url).get();
 			String left = "#tips-matchup > div.left.pagination > a:last-child";
@@ -60,7 +66,7 @@ public class TipScrape {
 			if(!moreText.equals(">>"))
 				return Integer.parseInt(leftText);
 			else
-				return connect(base, base + leftText);
+				return countChampionTail(base, base + leftText);
 			
 		} catch(Exception e) {
 			e.printStackTrace();

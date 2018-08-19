@@ -76,5 +76,4 @@ public class TipScrapeTest {
 		assertEquals(3, tipScrape.countPage(18));
 		assertEquals(10, tipScrape.countPage(17));
 	}
-	
 }
