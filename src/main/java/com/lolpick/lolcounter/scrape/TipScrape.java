@@ -14,6 +14,7 @@ import org.jsoup.select.Elements;
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Tip;
 import com.lolpick.lolcounter.service.ChampionService;
+import com.lolpick.lolcounter.service.TipService;
 import com.lolpick.lolcounter.utility.ChampionUtil;
 
 public class TipScrape {
@@ -28,6 +29,7 @@ public class TipScrape {
 		this.name = this.champion.getName().toLowerCase().replace(" ", "").replace("'", "");
 		this.base = "https://lolcounter.com/tips/" + name + "/all?page=";
 		this.tips = scrapeChampion();
+		TipService.create(this.tips);
 	}
 	
 	public Set<Tip> scrapeChampion() {
@@ -47,9 +49,15 @@ public class TipScrape {
 			Elements themElements = document.select(".tips > .champ-img");
 			Elements tipsElements = document.select(".tips > .tip");
 			
-			List<Integer> votes = votesElements.stream().map(vote -> Integer.parseInt(vote.text())).collect(Collectors.toList());
+			List<Integer> votes = votesElements.stream().
+					map(vote -> Integer.parseInt(vote.text())).
+					collect(Collectors.toList());
 			List<Champion> them = new ArrayList<>();
-			List<String> tipsString = tipsElements.stream().map(tip -> tip.text()).collect(Collectors.toList());
+			List<String> tipsString = tipsElements.
+					stream().
+					map(tip -> tip.text()).
+					map(tip -> tip.substring(0, tip.contains(" Report Submitted By") ? tip.indexOf(" Report Submitted By") : tip.length())).
+					collect(Collectors.toList());
 			
 			for(Element themElement: themElements) {
 				String find = themElement.attr("find");
@@ -76,7 +84,6 @@ public class TipScrape {
 		for(int i=0; i<votes.size(); i++)
 			tipSet.add(new Tip(votes.get(i), this.champion, them.get(i), tips.get(i)));
 
-		System.out.println(tipSet);
 		return tipSet;
 	}
 	
