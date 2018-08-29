@@ -41,23 +41,50 @@ public class TipScrape {
 		return tips;
 	}
 	
+	public Integer integerParseInt(String string) {
+		if(string.contains(".")) {	
+			String thousand = string.substring(0, string.indexOf("."));
+			String hundred = string.substring(string.indexOf(".")+1, string.length()-1);
+			
+			Integer integerVote = 0;
+			integerVote += new Integer(1000) * Integer.parseInt(thousand);
+			integerVote += new Integer(100) * Integer.parseInt(hundred);
+			return integerVote;
+		} else {
+			String thousand = string.substring(0, string.indexOf("k"));
+			Integer integerVote = 0;
+			integerVote += new Integer(1000) * Integer.parseInt(thousand);
+			return integerVote;
+		}
+	}
+	
 	public Set<Tip> scrapePage(String url){
 		try {
 			Document document = Jsoup.connect(url).get();
 			
-			Elements votesElements = document.select(".tips > .votes");
+			Elements voteElements = document.select(".tips > .votes");
 			Elements themElements = document.select(".tips > .champ-img");
-			Elements tipsElements = document.select(".tips > .tip");
+			Elements tipElements = document.select(".tips > .tip");
 			
-			List<Integer> votes = votesElements.stream().
-					map(vote -> Integer.parseInt(vote.text())).
-					collect(Collectors.toList());
-			List<Champion> them = new ArrayList<>();
-			List<String> tipsString = tipsElements.
+			List<String> tipsString = tipElements.
 					stream().
 					map(tip -> tip.text()).
 					map(tip -> tip.substring(0, tip.contains(" Report Submitted By") ? tip.indexOf(" Report Submitted By") : tip.length())).
 					collect(Collectors.toList());
+
+			List<Integer> votes = new ArrayList<>();
+			
+			for(Element voteElement: voteElements) {
+				String vote = voteElement.text();
+				
+				if(vote.contains("k")) 
+					votes.add(integerParseInt(vote));
+				else
+					votes.add(Integer.parseInt(vote));
+						
+			}
+
+			List<Champion> them = new ArrayList<>();
 			
 			for(Element themElement: themElements) {
 				String find = themElement.attr("find");
