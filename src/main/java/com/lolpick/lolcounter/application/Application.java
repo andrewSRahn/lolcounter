@@ -19,7 +19,7 @@ public class Application {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Logger logger = Logger.getLogger(Application.class.getName());
-		logger.setLevel(Level.ALL);
+		logger.setLevel(Level.ALL); 
 		try {
 			FileHandler fileHandler = new FileHandler("src/main/resources/lolcounter%g%u.log");
 		} catch (Exception e) {
