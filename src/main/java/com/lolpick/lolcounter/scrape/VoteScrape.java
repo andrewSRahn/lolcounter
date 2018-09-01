@@ -3,12 +3,12 @@ package com.lolpick.lolcounter.scrape;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lolpick.lolcounter.application.Fail;
 import com.lolpick.lolcounter.entity.Champion;
@@ -20,36 +20,21 @@ import com.lolpick.lolcounter.service.VoteService;
 public class VoteScrape {
 	private String url;
 	private Power power;
-
+	private Logger logger;
+	
 	public VoteScrape(Champion champion, String relation) {
 		String name = champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
 		this.url = "https://lolcounter.com/champions/" + name + "/" + relation.toLowerCase();
-		
+		this.logger = LoggerFactory.getLogger(VoteScrape.class);
 		this.power = scrape(name, relation, champion.getId());
 		try {
 			if(insert(this.url, champion.getName(), relation, champion.getId()))
-				System.out.println(this.url);
+				logger.trace(this.url);
 			else
-				throw new Exception(this.url + " failed");
+				logger.trace(this.url + " failed");
 		} catch(Exception e) {
 			Fail.appendToFile("src/main/resources/fails.txt", this.url, name, relation, champion.getId());
-			System.out.println(this.url + " failed");
-		}
-	}
-	
-	public VoteScrape(Champion champion, String relation, Logger logger) {
-		String name = champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
-		this.url = "https://lolcounter.com/champions/" + name + "/" + relation.toLowerCase();
-		
-		this.power = scrape(name, relation, champion.getId());
-		try {
-			if(insert(this.url, champion.getName(), relation, champion.getId()))
-				logger.log(Level.INFO, this.url);
-			else
-				logger.log(Level.WARNING, this.url + "failed");
-		} catch(Exception e) {
-			Fail.appendToFile("src/main/resources/fails.txt", this.url, name, relation, champion.getId());
-			logger.log(Level.WARNING, this.url + "failed");
+			logger.trace(this.url + " failed");
 		}
 	}
 	

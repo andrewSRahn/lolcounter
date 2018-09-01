@@ -3,6 +3,9 @@ package com.lolpick.lolcounter.application;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.scrape.ChampionScrape;
 import com.lolpick.lolcounter.scrape.LaneRoleScrape;
@@ -15,6 +18,8 @@ import com.lolpick.lolcounter.service.RoleService;
 public class Application {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+		Logger logger = LoggerFactory.getLogger(Application.class);
+		
 		ChampionScrape championScrape = new ChampionScrape();
 		
 		LaneService.initialize();
@@ -27,20 +32,15 @@ public class Application {
 			LaneRoleScrape laneRoleScrape = new LaneRoleScrape(champion);
 			TipScrape tipScrape = new TipScrape(champion);
 			
-			String log0 = laneRoleScrape.getChampionId() + ":" + laneRoleScrape.getName();
-			String log1 = laneRoleScrape.getLanes().toString();
-			String log2 = laneRoleScrape.getRoles().toString();
-			String log3 = tipScrape.getTips().toString();
-			
-			System.out.println(laneRoleScrape.getChampionId() + ":" + laneRoleScrape.getName());
-			System.out.println(laneRoleScrape.getLanes());
-			System.out.println(laneRoleScrape.getRoles());
-			System.out.println(tipScrape.getTips());
+			logger.trace(laneRoleScrape.getChampionId() + ":" + laneRoleScrape.getName());
+			logger.trace(laneRoleScrape.getLanes().toString());
+			logger.trace(laneRoleScrape.getRoles().toString());
+			logger.trace(tipScrape.getTips().toString());
 
 			for(String power: powers) {
 				VoteScrape voteScrape = new VoteScrape(champion, power);
 			}
 		}
-		System.out.println("Done!");
+		logger.trace("Done!");
 	}
 }

@@ -4,6 +4,8 @@ import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Lane;
@@ -14,9 +16,11 @@ import com.lolpick.lolcounter.service.RoleService;
 
 public class LaneRoleScrape {	
 	private Champion champion;
+	private Logger logger;
 	
 	public LaneRoleScrape(Champion champion) {
 		this.champion = champion;
+		this.logger = LoggerFactory.getLogger(LaneRoleScrape.class);
 		scrape();
 		insert();
 	}
@@ -45,7 +49,7 @@ public class LaneRoleScrape {
 			String url = "https://lolcounter.com/champions/" + name;
 			document = Jsoup.connect(url).get();
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			return false;
 		}
 		

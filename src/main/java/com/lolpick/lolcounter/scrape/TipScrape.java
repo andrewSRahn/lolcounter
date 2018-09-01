@@ -10,6 +10,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Tip;
@@ -18,6 +20,7 @@ import com.lolpick.lolcounter.service.TipService;
 import com.lolpick.lolcounter.utility.ChampionUtil;
 
 public class TipScrape {
+	private Logger logger;
 	private Champion champion;
 	private Set<Tip> tips;
 	
@@ -28,6 +31,7 @@ public class TipScrape {
 		this.champion = champion;
 		this.name = this.champion.getName().toLowerCase().replace(" ", "").replace(".","").replace("'", "");
 		this.base = "https://lolcounter.com/tips/" + name + "/all?page=";
+		this.logger = LoggerFactory.getLogger(TipScrape.class);
 		this.tips = scrapeChampion();
 		TipService.create(this.tips);
 	}
@@ -99,7 +103,7 @@ public class TipScrape {
 			
 			return createTips(votes, them, tipsString);
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		
 		return null;
@@ -119,7 +123,7 @@ public class TipScrape {
 			Document document = Jsoup.connect(this.base + page).get();
 			return document.select("[class ^= tips _]").size();
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		
 		return 0;
@@ -144,7 +148,7 @@ public class TipScrape {
 				return countChampionTail(base, base + leftText);
 			
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} 
 		return 0;
 	}
