@@ -17,6 +17,15 @@ import com.lolpick.lolcounter.service.ChampionService;
 public class TipScrapeTest {
 
 	@Test
+	public void testIntegerParseInt() {
+		Champion ahri = ChampionService.readChampion("Ahri");
+		TipScrape tipScrape = new TipScrape(ahri);
+		assertEquals(new Integer(1000), tipScrape.integerParseInt("1k"));
+		assertEquals(new Integer(1200), tipScrape.integerParseInt("1.2k"));
+		assertEquals(new Integer(1600), tipScrape.integerParseInt("1.6k"));
+	}
+	
+	@Ignore
 	public void testAkali() {
 		Champion akali = ChampionService.readChampion("Akali");
 		Champion lee = ChampionService.readChampion("Lee Sin");

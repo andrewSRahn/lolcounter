@@ -3,27 +3,29 @@ package com.lolpick.lolcounter.scrape;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.lolpick.lolcounter.application.Fail;
-import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Power;
-import com.lolpick.lolcounter.service.VoteService;
+import com.lolpick.lolcounter.entity.Vote;
 import com.lolpick.lolcounter.service.PowerService;
+import com.lolpick.lolcounter.service.VoteService;
 
 public class VoteScrape {
 	private String url;
-	private Power page;
+	private Power power;
 
 	public VoteScrape(Champion champion, String relation) {
 		String name = champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
 		this.url = "https://lolcounter.com/champions/" + name + "/" + relation.toLowerCase();
 		
-		this.page = scrape(name, relation, champion.getId());
+		this.power = scrape(name, relation, champion.getId());
 		try {
 			if(insert(this.url, champion.getName(), relation, champion.getId()))
 				System.out.println(this.url);
@@ -32,6 +34,22 @@ public class VoteScrape {
 		} catch(Exception e) {
 			Fail.appendToFile("src/main/resources/fails.txt", this.url, name, relation, champion.getId());
 			System.out.println(this.url + " failed");
+		}
+	}
+	
+	public VoteScrape(Champion champion, String relation, Logger logger) {
+		String name = champion.getName().toLowerCase().replace("'", "").replace(".", "").replace(" ", "");
+		this.url = "https://lolcounter.com/champions/" + name + "/" + relation.toLowerCase();
+		
+		this.power = scrape(name, relation, champion.getId());
+		try {
+			if(insert(this.url, champion.getName(), relation, champion.getId()))
+				logger.log(Level.INFO, this.url);
+			else
+				logger.log(Level.WARNING, this.url + "failed");
+		} catch(Exception e) {
+			Fail.appendToFile("src/main/resources/fails.txt", this.url, name, relation, champion.getId());
+			logger.log(Level.WARNING, this.url + "failed");
 		}
 	}
 	
@@ -129,10 +147,10 @@ public class VoteScrape {
 	}
 	
 	public Power getPage() {
-		return page;
+		return power;
 	}
 
 	public void setPage(Power page) {
-		this.page = page;
+		this.power = page;
 	}
 }
