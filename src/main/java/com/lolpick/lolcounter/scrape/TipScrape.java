@@ -26,7 +26,7 @@ public class TipScrape {
 
 	public TipScrape(Champion champion) {
 		this.champion = champion;
-		this.name = this.champion.getName().toLowerCase().replace(" ", "").replace("'", "");
+		this.name = this.champion.getName().toLowerCase().replace(" ", "").replace(".","").replace("'", "");
 		this.base = "https://lolcounter.com/tips/" + name + "/all?page=";
 		this.tips = scrapeChampion();
 		TipService.create(this.tips);
