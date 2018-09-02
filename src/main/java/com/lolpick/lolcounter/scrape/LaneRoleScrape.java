@@ -1,3 +1,15 @@
+/***
+ * @author Andrew Ahn
+ * @date 2 September 2018
+ * 
+ * This class scrapes 140 pages https://lolcounter.com/champions/${name}.  LaneRoleScrape captures two Entities
+ * from each page:  the lanes and the roles for each name.  Since champions can be played in multiple lanes and
+ * have multiple builds, this class stores that data.  For database design, refer to 
+ * com.lolpick.lolcounter.entity.Lane and com.lolpick.lolcounter.entity.Role. LaneRoleScrape#laneSwitch and 
+ * LaneRoleScrape#roleSwitch contain the indexing information for Role table and Lane table.  They are unused
+ * at the moment but I want to keep that in the code.
+ */
+
 package com.lolpick.lolcounter.scrape;
 
 import java.util.Set;

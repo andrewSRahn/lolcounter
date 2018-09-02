@@ -2,7 +2,7 @@ Overview:
 -----------------
 This is a Java webscraper that takes information from lolcounter.com and stores upvotes, downvotes, power, lanes, roles, and comments into SQL.  A seperate J2EE application, lolcounter.rest, will take the data and produce the data as JSON.  Another Electron application, lolpick, will receive the data.  Lolpick will read the JSON and present lolcounter information in tandem with real-time draft data sourced from League of Legends game logs.  
 
-The webscraper and REST server will be built in Java utilizing JSoup, Jersey, Hibernate, Rest Assured, Cucumber, and TestNg.  The client application will be built with in TypeScript with Electron and Angular.
+The webscraper and REST service will be built in Java utilizing JSoup, Jersey, Hibernate, Rest Assured, Cucumber, and TestNg.  The client application will be built with in TypeScript with Electron and Angular.
 
 Motivations:
 -----------------

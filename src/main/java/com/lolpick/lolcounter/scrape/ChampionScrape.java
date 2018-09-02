@@ -1,3 +1,15 @@
+/***
+ * @author Andrew Ahn: andrewsrahn@gmail.com
+ * @date 2 September 2018
+ * 
+ * This class scrapes https://lolcounter.com/champions for champion names.  League of Legends
+ * champions contain three special characters:  ', ., and ' '.  For example, Cho'Gath, Dr. Mundo,
+ * and Lee Sin.  The characters are preserved in the database which must be replaced when entered 
+ * into urls.  The string replacement code can be round in LaneRoleScrape#scrape and 
+ * TipScrape#constructor.  Copypasta ftw.  Last note, the index of champion is an arbitrary index
+ * and does not correspond to Riot Games championId.  
+ */
+
 package com.lolpick.lolcounter.scrape;
 
 import java.io.IOException;

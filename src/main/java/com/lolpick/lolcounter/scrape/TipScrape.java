@@ -1,3 +1,11 @@
+/***
+ * @author Andrew Ahn
+ * @date 2 September 2018
+ * 
+ * This class scrapes tips from https://lolcounter.com/tips/${name}/all?page=${number} for 140 champions 
+ * both general and versus others.  The 
+ */
+
 package com.lolpick.lolcounter.scrape;
 
 import java.util.ArrayList;
