@@ -20,6 +20,8 @@ public class Application {
 	public static void main(String[] args) {
 		Logger logger = LoggerFactory.getLogger(Application.class);
 		
+		logger.info("Starting up!");
+		
 		ChampionScrape championScrape = new ChampionScrape();
 		
 		LaneService.initialize();
@@ -32,15 +34,16 @@ public class Application {
 			LaneRoleScrape laneRoleScrape = new LaneRoleScrape(champion);
 			TipScrape tipScrape = new TipScrape(champion);
 			
-			logger.trace(laneRoleScrape.getChampionId() + ":" + laneRoleScrape.getName());
-			logger.trace(laneRoleScrape.getLanes().toString());
-			logger.trace(laneRoleScrape.getRoles().toString());
-			logger.trace(tipScrape.getTips().toString());
+			logger.info(laneRoleScrape.getChampionId() + ":" + laneRoleScrape.getName());
+			logger.info(laneRoleScrape.getLanes().toString());
+			logger.info(laneRoleScrape.getRoles().toString());
+			logger.info(tipScrape.getTips().toString());
 
 			for(String power: powers) {
 				VoteScrape voteScrape = new VoteScrape(champion, power);
 			}
 		}
-		logger.trace("Done!");
+		
+		logger.info("Done!");
 	}
 }

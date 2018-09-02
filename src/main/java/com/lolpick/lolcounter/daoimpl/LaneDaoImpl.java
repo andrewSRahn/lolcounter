@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lolpick.lolcounter.dao.LaneDao;
 import com.lolpick.lolcounter.entity.Champion;
@@ -12,6 +14,7 @@ import com.lolpick.lolcounter.entity.Lane;
 import com.lolpick.lolcounter.utility.HibernateUtil;
 
 public class LaneDaoImpl implements LaneDao{
+	private Logger logger = LoggerFactory.getLogger(LaneDaoImpl.class);
 	
 	@Override
 	public boolean create(Set<Lane> lanes) {
@@ -33,8 +36,8 @@ public class LaneDaoImpl implements LaneDao{
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
+			logger.error(e.getMessage());
 			transaction.rollback();
-			e.printStackTrace();
 		} finally {
 			session.close();
 		}
@@ -53,7 +56,7 @@ public class LaneDaoImpl implements LaneDao{
 					.setParameter("lane", lane)
 					.getSingleResult();
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			session.close();
 		}
@@ -87,7 +90,7 @@ public class LaneDaoImpl implements LaneDao{
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			transaction.rollback();
 		} finally {
 			session.close();

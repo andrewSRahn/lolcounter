@@ -10,6 +10,9 @@ I used to play a lot of League of Legends before I started working.  I liked to 
 
 I have had the good fortune of seeing amazing applications built with excellent technologies written with beautiful code.  I want to constantly learn how to use those technologies and this application is a product of that desire.  My code is not very beautiful but I will only get better by practicing every day.  I will write code every day until I produce something beautiful and valuable for the sake of producing enjoyable and useful software.
 
+Fails:
+-----------------
+When scrapers have failed, logs/log.log will contain error messages for the failing entity.  
 
 Run:
 -----------------

@@ -4,12 +4,15 @@ import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lolpick.lolcounter.dao.TipDao;
 import com.lolpick.lolcounter.entity.Tip;
 import com.lolpick.lolcounter.utility.HibernateUtil;
 
 public class TipDaoImpl implements TipDao{
+	private Logger logger = LoggerFactory.getLogger(TipDaoImpl.class);
 	
 	@Override
 	public boolean create(Set<Tip> tips) {
@@ -31,7 +34,7 @@ public class TipDaoImpl implements TipDao{
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			transaction.rollback();
 		} finally {
 			session.close();

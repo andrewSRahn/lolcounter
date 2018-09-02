@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lolpick.lolcounter.dao.RoleDao;
 import com.lolpick.lolcounter.entity.Champion;
@@ -12,6 +14,7 @@ import com.lolpick.lolcounter.entity.Role;
 import com.lolpick.lolcounter.utility.HibernateUtil;
 
 public class RoleDaoImpl implements RoleDao{
+	private Logger logger = LoggerFactory.getLogger(RoleDaoImpl.class);
 	
 	@Override
 	public boolean create(Set<Role> roles) {
@@ -33,8 +36,8 @@ public class RoleDaoImpl implements RoleDao{
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
+			logger.error(e.getMessage());
 			transaction.rollback();
-			e.printStackTrace();
 		} finally {
 			session.close();
 		}
@@ -52,7 +55,7 @@ public class RoleDaoImpl implements RoleDao{
 					.setParameter("role", role)
 					.getSingleResult();
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			session.close();
 		}
@@ -88,7 +91,7 @@ public class RoleDaoImpl implements RoleDao{
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			transaction.rollback();
 		} finally {
 			session.close();

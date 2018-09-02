@@ -10,7 +10,6 @@ import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lolpick.lolcounter.application.Fail;
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.entity.Power;
 import com.lolpick.lolcounter.entity.Vote;
@@ -29,12 +28,11 @@ public class VoteScrape {
 		this.power = scrape(name, relation, champion.getId());
 		try {
 			if(insert(this.url, champion.getName(), relation, champion.getId()))
-				logger.trace(this.url);
+				logger.info(this.url);
 			else
-				logger.trace(this.url + " failed");
+				logger.info(this.url + " failed");
 		} catch(Exception e) {
-			Fail.appendToFile("src/main/resources/fails.txt", this.url, name, relation, champion.getId());
-			logger.trace(this.url + " failed");
+			logger.error(this.url + " failed");
 		}
 	}
 	

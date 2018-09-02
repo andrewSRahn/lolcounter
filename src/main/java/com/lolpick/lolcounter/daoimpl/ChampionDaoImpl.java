@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lolpick.lolcounter.dao.ChampionDao;
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.utility.HibernateUtil;
 
 public class ChampionDaoImpl implements ChampionDao {
+	private Logger logger = LoggerFactory.getLogger(ChampionDaoImpl.class);
+	
 	@Override
 	public boolean updateChampion(Champion champion) {
 		Session session = null;
@@ -26,7 +30,7 @@ public class ChampionDaoImpl implements ChampionDao {
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			transaction.rollback();
 		} finally {
 			session.close();
@@ -56,8 +60,8 @@ public class ChampionDaoImpl implements ChampionDao {
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
+			logger.error(e.getMessage());
 			transaction.rollback();
-			e.printStackTrace();
 		} finally {
 			session.close();
 		}
@@ -73,7 +77,7 @@ public class ChampionDaoImpl implements ChampionDao {
 			session = HibernateUtil.getSessionFactory().openSession();
 			return session.createQuery("from Champion", Champion.class).getResultList();
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			session.close();
 		}

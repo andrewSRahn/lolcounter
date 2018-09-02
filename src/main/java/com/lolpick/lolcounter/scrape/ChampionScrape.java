@@ -35,9 +35,10 @@ public class ChampionScrape {
 		for(int i = 1; i < CHAMPION_COUNT; i++) {
 			String selector = "#all-champions > div.champions > a:nth-child(" + i + ") > div > div";
 			Elements champions = doc.select(selector);
-			for(Element champion: champions)
-				championList.add( 
-						new Champion(i, champion.text()));
+			for(Element champion: champions) {
+				logger.info(champion.text());
+				championList.add(new Champion(i, champion.text()));
+			}
 		}
 		
 		return championList;
