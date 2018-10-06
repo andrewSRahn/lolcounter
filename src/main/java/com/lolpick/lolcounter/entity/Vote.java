@@ -14,8 +14,8 @@ public class Vote {
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name="page_id", nullable=false)
-	private Power page;
+	@JoinColumn(name="power_id", nullable=false)
+	private Power power;
 	
 	@Column
 	private String name;
@@ -36,7 +36,7 @@ public class Vote {
 	public Vote(Integer id, Power page, String name, String lane, Integer up, Integer down) {
 		super();
 		this.id = id;
-		this.page = page;
+		this.power = page;
 		this.name = name;
 		this.lane = lane;
 		this.up = up;
@@ -84,11 +84,11 @@ public class Vote {
 	}
 
 	public Power getPage() {
-		return page;
+		return power;
 	}
 
 	public void setPage(Power page) {
-		this.page = page;
+		this.power = page;
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class Vote {
 		int result = 1;
 		result = prime * result + ((lane == null) ? 0 : lane.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((page == null) ? 0 : page.hashCode());
+		result = prime * result + ((power == null) ? 0 : power.hashCode());
 		return result;
 	}
 
@@ -120,17 +120,17 @@ public class Vote {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (page == null) {
-			if (other.page != null)
+		if (power == null) {
+			if (other.power != null)
 				return false;
-		} else if (!page.equals(other.page))
+		} else if (!power.equals(other.power))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Block [id=" + id + ", page=" + page + ", name=" + name + ", lane=" + lane + ", up="
+		return "Block [id=" + id + ", page=" + power + ", name=" + name + ", lane=" + lane + ", up="
 				+ up + ", down=" + down + "]";
 	}
 }

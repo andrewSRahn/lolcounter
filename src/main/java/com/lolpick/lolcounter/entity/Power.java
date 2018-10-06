@@ -38,8 +38,8 @@ public class Power {
 	@Column
 	String power;
 	
-	@OneToMany(mappedBy="page", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	List<Vote> blocks;
+	@OneToMany(mappedBy="power", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	List<Vote> votes;
 	
 	public Power() {}
 
@@ -48,7 +48,7 @@ public class Power {
 		this.id = id;
 		this.name = name;
 		this.power = power;
-		this.blocks = blocks;
+		this.votes = blocks;
 	}
 
 	public Integer getId() {
@@ -76,11 +76,11 @@ public class Power {
 	}
 
 	public List<Vote> getBlocks() {
-		return blocks;
+		return votes;
 	}
 
 	public void setBlocks(List<Vote> blocks) {
-		this.blocks = blocks;
+		this.votes = blocks;
 	}
 
 	@Override
@@ -116,6 +116,6 @@ public class Power {
 
 	@Override
 	public String toString() {
-		return "Page [id=" + id + ", name=" + name + ", relation=" + power + ", blocks=" + blocks + "]";
+		return "Page [id=" + id + ", name=" + name + ", relation=" + power + ", blocks=" + votes + "]";
 	}
 }
