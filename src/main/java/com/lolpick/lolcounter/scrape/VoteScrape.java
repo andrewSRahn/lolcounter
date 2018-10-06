@@ -62,7 +62,7 @@ public class VoteScrape {
 			Element up = document.selectFirst(upSelector);
 			Element down = document.selectFirst(downSelector);
 			
-			String nameString = name.text();
+			String themString = name.text();
 			String laneString = lane.text();
 			
 			// the numbers contain , between thousands and hundreds
@@ -74,7 +74,7 @@ public class VoteScrape {
 			
 			Integer blockId = blockId(pageId, i-1);
 			
-			blocks.add(new Vote(blockId, page, nameString, laneString, upInteger, downInteger));
+			blocks.add(new Vote(blockId, page, champion, themString, laneString, upInteger, downInteger));
 			page.setBlocks(blocks);
 		}
 		

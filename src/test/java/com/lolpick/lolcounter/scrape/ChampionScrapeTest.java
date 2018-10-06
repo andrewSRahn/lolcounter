@@ -10,8 +10,10 @@ import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.service.ChampionService;
 
 public class ChampionScrapeTest {
+	@SuppressWarnings("unused")
 	@Test
 	public void testScrape() {
+		ChampionScrape scrape = new ChampionScrape();
 		List<Champion> champions = ChampionService.readChampions();
 		
 		assertTrue(contains(champions, "Zed"));

@@ -16,79 +16,86 @@ import com.lolpick.lolcounter.service.PowerService;
 public class VoteScrapeTest {
 	@Test
 	public void testScrapeAmumu() throws Exception {
-		VoteScrape pageScrape = new VoteScrape(
+		VoteScrape voteScrape = new VoteScrape(
 				ChampionService.readChampion("Amumu"),
 				"Weak");
 		
-		Power scrape = pageScrape.getPage();
+		Power power = voteScrape.getPage();
 		Vote block = new Vote(
 				100,
-				scrape,
+				power,
+				"Amumu",
 				"Shyvana", 
 				"Jungler", 
-				3164, 
-				1654);
+				3302, 
+				1762);
 		
-		assertTrue(scrape.getBlocks().contains(block));
-		assertTrue(PowerService.create(scrape));	
-		assertTrue(VoteService.createBlocks(scrape.getBlocks()));
+		System.out.println(block);
+		System.out.println(power);
+		
+		assertTrue(power.getBlocks().contains(block));
+		assertTrue(PowerService.create(power));	
+		assertTrue(VoteService.createBlocks(power.getBlocks()));
 	}
 
 	@Test
 	public void testScrapeBlitz() throws Exception{
-		VoteScrape pageScrape = new VoteScrape(
+		VoteScrape voteScrape = new VoteScrape(
 				ChampionService.readChampion("Blitzcrank"),
 				"Strong");
-		Power scrape = pageScrape.getPage();
+		Power power = voteScrape.getPage();
 	    Vote block = new Vote(
 	    		480,
-				scrape,
+				power,
+				"Blitzcrank",
 				"Sona", 
 				"Bottom", 
-				3982, 
-				1857);
+				4117, 
+				1965);
 	    
-	    assertTrue(scrape.getBlocks().contains(block));
-		assertTrue(PowerService.create(scrape));	
-		assertTrue(VoteService.createBlocks(scrape.getBlocks()));
+	    assertTrue(power.getBlocks().contains(block));
+		assertTrue(PowerService.create(power));	
+		assertTrue(VoteService.createBlocks(power.getBlocks()));
 	}
 	
 	@Test
 	public void testScrapeJanna() throws Exception{
-		VoteScrape pageScrape = new VoteScrape(
+		VoteScrape voteScrape = new VoteScrape(
 				ChampionService.readChampion("Janna"),
 				"Even");
-		Power scrape = pageScrape.getPage();
+		Power power = voteScrape.getPage();
 	    Vote block = new Vote(
 	    		2520,
-				scrape,
+				power,
+				"Janna",
 				"Anivia", 
 				"Jungler", 
-				1335, 
-				1007);
-	    assertTrue(scrape.getBlocks().contains(block));
-		assertTrue(PowerService.create(scrape));	
-		assertTrue(VoteService.createBlocks(scrape.getBlocks()));
+				1406, 
+				1090);
+	    assertTrue(power.getBlocks().contains(block));
+		assertTrue(PowerService.create(power));	
+		assertTrue(VoteService.createBlocks(power.getBlocks()));
 	}
 	
 	@Test
 	public void testScrapeLeona() throws Exception{
-		VoteScrape pageScrape = new VoteScrape(
+		VoteScrape voteScrape = new VoteScrape(
 				ChampionService.readChampion("Leona"),
 				"Good");
 
-		Power scrape = pageScrape.getPage();
+		Power power = voteScrape.getPage();
 		Vote block = new Vote(
 				5040,
-				scrape,
+				power,
+				"Leona",
 				"Jinx", 
 				"", 
-				4454, 
-				1430);
+				4570, 
+				1512);
 		
-		assertTrue(scrape.getBlocks().contains(block));
-		assertTrue(PowerService.create(scrape));
-		assertTrue(VoteService.createBlocks(scrape.getBlocks()));
+		assertTrue(power.getBlocks().contains(block));
+		assertTrue(PowerService.create(power));
+		assertTrue(VoteService.createBlocks(power.getBlocks()));
 	}
 	
 	@Test
