@@ -7,14 +7,12 @@ import java.util.List;
 import org.junit.Test;
 
 import com.lolpick.lolcounter.entity.Champion;
-import com.lolpick.lolcounter.service.ChampionService;
 
 public class ChampionScrapeTest {
-	@SuppressWarnings("unused")
 	@Test
 	public void testScrape() {
 		ChampionScrape scrape = new ChampionScrape();
-		List<Champion> champions = ChampionService.readChampions();
+		List<Champion> champions = scrape.getChampions();
 		
 		assertTrue(contains(champions, "Zed"));
 		assertTrue(contains(champions, "Kayle"));

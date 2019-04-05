@@ -25,17 +25,20 @@ import org.slf4j.LoggerFactory;
 
 import com.lolpick.lolcounter.entity.Champion;
 import com.lolpick.lolcounter.service.ChampionService;
+import com.lolpick.lolcounter.utility.ChampionUtil;
 
-public class ChampionScrape {	
+public class ChampionScrape {
+	private List<Champion> champions;
 	private final static int CHAMPION_COUNT = 141;
 	private static Logger logger;
-	
+
 	public ChampionScrape() {
 		logger = LoggerFactory.getLogger(ChampionScrape.class);
-		insert();
+		champions = scrape();
+		ChampionService.createChampions(champions);
 	}
-	
-	private static List<Champion> scrape() {
+
+	public List<Champion> scrape() {
 		List<Champion> championList = new ArrayList<>();
 		Document doc = null;
 		try {
@@ -43,20 +46,24 @@ public class ChampionScrape {
 		} catch (IOException e) {
 			logger.error(e.getMessage());
 		}
-		
-		for(int i = 1; i < CHAMPION_COUNT; i++) {
+
+		for (int i = 1; i < CHAMPION_COUNT; i++) {
 			String selector = "#all-champions > div.champions > a:nth-child(" + i + ") > div > div";
 			Elements champions = doc.select(selector);
-			for(Element champion: champions) {
-				logger.info(champion.text());
-				championList.add(new Champion(i, champion.text()));
+			for (Element champion : champions) {
+				String name = ChampionUtil.riotifyLolcounterChampionName(champion.text());
+				Integer id = ChampionUtil.riotifyLolcounterChampionId(name);
+				
+				logger.info(id + " " + name);
+				championList.add(new Champion(id, name));
 			}
 		}
-		
+
 		return championList;
 	}
-	
-	private static void insert() {
-		ChampionService.createChampions(scrape());
+
+	public List<Champion> getChampions() {
+		return champions;
 	}
+	
 }

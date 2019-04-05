@@ -82,6 +82,7 @@ public class TipScrape {
 					stream().
 					map(tip -> tip.text()).
 					map(tip -> tip.substring(0, tip.contains(" Report Submitted By") ? tip.indexOf(" Report Submitted By") : tip.length())).
+					map(tip -> tip.substring(0, tip.contains(" Report") ? tip.indexOf(" Report") : tip.length())).
 					collect(Collectors.toList());
 
 			List<Integer> votes = new ArrayList<>();

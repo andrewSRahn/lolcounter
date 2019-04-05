@@ -22,7 +22,7 @@ public class Application {
 		
 		logger.info("Starting up!");
 		
-		ChampionScrape championScrape = new ChampionScrape();
+		new ChampionScrape();
 		
 		LaneService.initialize();
 		RoleService.initialize();
@@ -38,7 +38,8 @@ public class Application {
 			logger.info(laneRoleScrape.getLanes().toString());
 			logger.info(laneRoleScrape.getRoles().toString());
 			logger.info(tipScrape.getTips().toString());
-
+			
+			
 			for(String power: powers) {
 				VoteScrape voteScrape = new VoteScrape(champion, power);
 			}
