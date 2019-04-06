@@ -70,12 +70,12 @@ Malzahar 90
 Maokai 57
 MasterYi 11
 MissFortune 21
-MonkeyKing 62
 Mordekaiser 82
 Morgana 25
 Nami 267
 Nasus 75
 Nautilus 111
+Neeko 518
 Nidalee 76
 Nocturne 56
 Nunu 20
@@ -88,7 +88,7 @@ Pyke 555
 Quinn 133
 Rakan 497
 Rammus 33
-RekSai 421
+Reksai 421
 Renekton 58
 Rengar 107
 Riven 92
@@ -105,6 +105,7 @@ Skarner 72
 Sona 37
 Soraka 16
 Swain 50
+Sylas 517
 Syndra 134
 TahmKench 223
 Taliyah 163
@@ -128,6 +129,7 @@ Viktor 112
 Vladimir 8
 Volibear 106
 Warwick 19
+Wukong 62
 Xayah 498
 Xerath 101
 XinZhao 5
