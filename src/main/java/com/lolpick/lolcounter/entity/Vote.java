@@ -3,19 +3,17 @@ package com.lolpick.lolcounter.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="vote")
 public class Vote {
+
 	@Id
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name="power_id", nullable=false)
-	private Power power;
+	@Column
+	private String vote;
 	
 	@Column
 	private String us;
@@ -36,10 +34,10 @@ public class Vote {
 		super();
 	}
 
-	public Vote(Integer id, Power power, String us, String them, String lane, Integer up, Integer down) {
+	public Vote(Integer id, String vote, String us, String them, String lane, Integer up, Integer down) {
 		super();
 		this.id = id;
-		this.power = power;
+		this.vote = vote;
 		this.us = us;
 		this.them = them;
 		this.lane = lane;
@@ -63,12 +61,12 @@ public class Vote {
 		this.us = us;
 	}
 
-	public Power getPower() {
-		return power;
+	public String getVote() {
+		return vote;
 	}
 
-	public void setPower(Power power) {
-		this.power = power;
+	public void setPower(String vote) {
+		this.vote = vote;
 	}
 
 	public String getThem() {
@@ -110,7 +108,7 @@ public class Vote {
 		result = prime * result + ((down == null) ? 0 : down.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lane == null) ? 0 : lane.hashCode());
-		result = prime * result + ((power == null) ? 0 : power.hashCode());
+		result = prime * result + ((vote == null) ? 0 : vote.hashCode());
 		result = prime * result + ((them == null) ? 0 : them.hashCode());
 		result = prime * result + ((up == null) ? 0 : up.hashCode());
 		result = prime * result + ((us == null) ? 0 : us.hashCode());
@@ -141,10 +139,10 @@ public class Vote {
 				return false;
 		} else if (!lane.equals(other.lane))
 			return false;
-		if (power == null) {
-			if (other.power != null)
+		if (vote == null) {
+			if (other.vote != null)
 				return false;
-		} else if (!power.equals(other.power))
+		} else if (!vote.equals(other.vote))
 			return false;
 		if (them == null) {
 			if (other.them != null)
@@ -166,7 +164,7 @@ public class Vote {
 
 	@Override
 	public String toString() {
-		return "Vote [id=" + id + ", power=" + power + ", us=" + us + ", them=" + them + ", lane=" + lane + ", up=" + up
+		return "Vote [id=" + id + ", vote=" + vote + ", us=" + us + ", them=" + them + ", lane=" + lane + ", up=" + up
 				+ ", down=" + down + "]";
 	}
 	

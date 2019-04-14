@@ -3,15 +3,14 @@ package com.lolpick.lolcounter.scrape;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
 
 import com.lolpick.lolcounter.entity.Vote;
-import com.lolpick.lolcounter.entity.Power;
-import com.lolpick.lolcounter.service.VoteService;
 import com.lolpick.lolcounter.service.ChampionService;
-import com.lolpick.lolcounter.service.PowerService;
 
 public class VoteScrapeTest {
 	@Test
@@ -20,22 +19,20 @@ public class VoteScrapeTest {
 				ChampionService.readChampion("Amumu"),
 				"Weak");
 		
-		Power power = voteScrape.getPage();
-		Vote block = new Vote(
-				100,
-				power,
-				"Amumu",
+		Vote vote = new Vote(
+				125,
+				"Weak",
+				"amumu",
 				"Shyvana", 
 				"Jungler", 
-				3302, 
-				1762);
+				3532, 
+				1965);
 		
-		System.out.println(block);
-		System.out.println(power);
+		List<Vote> votes = voteScrape.getVotes();
 		
-		assertTrue(power.getBlocks().contains(block));
-		assertTrue(PowerService.create(power));	
-		assertTrue(VoteService.createBlocks(power.getBlocks()));
+		System.out.println(vote);
+		System.out.println(votes);
+		assertTrue(votes.contains(vote));
 	}
 
 	@Test
@@ -43,19 +40,21 @@ public class VoteScrapeTest {
 		VoteScrape voteScrape = new VoteScrape(
 				ChampionService.readChampion("Blitzcrank"),
 				"Strong");
-		Power power = voteScrape.getPage();
-	    Vote block = new Vote(
-	    		480,
-				power,
-				"Blitzcrank",
+	    Vote vote = new Vote(
+	    		210,
+				"Strong",
+				"blitzcrank",
 				"Sona", 
 				"Bottom", 
-				4117, 
-				1965);
+				4428, 
+				2207);
 	    
-	    assertTrue(power.getBlocks().contains(block));
-		assertTrue(PowerService.create(power));	
-		assertTrue(VoteService.createBlocks(power.getBlocks()));
+	    List<Vote> votes = voteScrape.getVotes();
+		System.out.println(vote);
+		System.out.println(votes);
+		assertTrue(votes.contains(vote));
+	    
+
 	}
 	
 	@Test
@@ -63,18 +62,19 @@ public class VoteScrapeTest {
 		VoteScrape voteScrape = new VoteScrape(
 				ChampionService.readChampion("Janna"),
 				"Even");
-		Power power = voteScrape.getPage();
-	    Vote block = new Vote(
-	    		2520,
-				power,
-				"Janna",
+	    Vote vote = new Vote(
+	    		159,
+				"Even",
+				"janna",
 				"Anivia", 
 				"Jungler", 
-				1406, 
-				1090);
-	    assertTrue(power.getBlocks().contains(block));
-		assertTrue(PowerService.create(power));	
-		assertTrue(VoteService.createBlocks(power.getBlocks()));
+				1519, 
+				1192);
+
+	    List<Vote> votes = voteScrape.getVotes();
+		System.out.println(vote);
+		System.out.println(votes);
+		assertTrue(votes.contains(vote));
 	}
 	
 	@Test
@@ -83,19 +83,20 @@ public class VoteScrapeTest {
 				ChampionService.readChampion("Leona"),
 				"Good");
 
-		Power power = voteScrape.getPage();
-		Vote block = new Vote(
-				5040,
-				power,
-				"Leona",
+		Vote vote = new Vote(
+				356,
+				"Good",
+				"leona",
 				"Jinx", 
 				"", 
-				4570, 
-				1512);
+				4771, 
+				1637);
 		
-		assertTrue(power.getBlocks().contains(block));
-		assertTrue(PowerService.create(power));
-		assertTrue(VoteService.createBlocks(power.getBlocks()));
+	    List<Vote> votes = voteScrape.getVotes();
+		System.out.println(vote);
+		System.out.println(votes);
+		assertTrue(votes.contains(vote));
+		
 	}
 	
 	@Test

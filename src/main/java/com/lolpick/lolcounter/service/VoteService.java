@@ -15,4 +15,8 @@ public class VoteService {
 		
 		return true;
 	}
+
+	public static boolean createBlocks(Vote vote) {
+		return daoimpl.create(vote);
+	}
 }

@@ -13,13 +13,13 @@ public class VoteDaoImpl implements VoteDao{
 	private Logger logger = LoggerFactory.getLogger(VoteDaoImpl.class);
 
 	@Override
-	public boolean create(Vote block) {
+	public boolean create(Vote vote) {
 		Session session = null;
 		Transaction transaction = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(block);
+			session.saveOrUpdate(vote);
 			transaction.commit();
 			return true;
 		} catch(Exception e) {
