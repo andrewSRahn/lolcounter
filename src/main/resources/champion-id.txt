@@ -5,6 +5,7 @@ Alistar 12
 Amumu 32
 Anivia 34
 Annie 1
+Aphelios 523
 Ashe 22
 AurelionSol 136
 Azir 268
@@ -57,7 +58,7 @@ Kennen 85
 Khazix 121
 Kindred 203
 Kled 240
-Kog'Maw 96
+KogMaw 96
 LeBlanc 7
 LeeSin 64
 Leona 89
@@ -85,6 +86,7 @@ Ornn 516
 Pantheon 80
 Poppy 78
 Pyke 555
+Qiyana 246
 Quinn 133
 Rakan 497
 Rammus 33
@@ -94,7 +96,11 @@ Rengar 107
 Riven 92
 Rumble 68
 Ryze 13
+Samira 360
 Sejuani 113
+Senna 235
+Seraphine 147
+Sett 875
 Shaco 35
 Shen 98
 Shyvana 102
@@ -134,7 +140,9 @@ Xayah 498
 Xerath 101
 XinZhao 5
 Yasuo 157
+Yone 777
 Yorick 83
+Yuumi 350
 Zac 154
 Zed 238
 Ziggs 115
